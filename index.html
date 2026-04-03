@@ -510,34 +510,6 @@ nav {
   max-width: 580px;
 }
 
-.geo-notice {
-  margin-top: 24px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: var(--ink-light);
-  background: rgba(59,130,246,.06);
-  border: 1px solid var(--rule);
-  padding: 6px 14px;
-  border-radius: 100px;
-}
-
-.geo-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--green);
-  display: inline-block;
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.4; }
-}
-
 .pricing-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1145,62 +1117,58 @@ footer {
 <section id="pricing">
   <div class="container">
     <span class="label">Pricing</span>
-    <h2>Transparent. Geo-based. No surprises.</h2>
+    <h2>Transparent. Per person. No surprises.</h2>
     <p class="pricing-intro">
-      Pricing reflects local market realities. One service, adjusted for what makes sense where you operate.
+      One price per LinkedIn account activated. Scale up or down as your team evolves — no tiers, no complexity.
     </p>
-    <div class="geo-notice">
-      <span class="geo-dot"></span>
-      <span id="geo-label">Detecting your region&hellip;</span>
-    </div>
 
     <div class="pricing-cards">
-      <!-- Trial -->
+      <!-- Per Account -->
       <div class="pricing-card">
-        <div class="pricing-card-name">Trial — First Month</div>
-        <div class="pricing-price" id="price-trial">
-          <span id="trial-price-display">&mdash;</span>
-        </div>
-        <p class="pricing-desc">One month. Structured as a genuine proof of concept, not a teaser.</p>
-        <ul class="pricing-features">
-          <li>Up to 5 of your team's LinkedIn accounts activated</li>
-          <li>60 touchpoints over 30 days</li>
-          <li>Real-time activity dashboard</li>
-          <li><strong style="color:var(--ink)">If fewer than 5 qualified conversations: you pay nothing</strong></li>
-          <li>If 5+ conversations delivered: monthly rate applies from month two</li>
-        </ul>
-      </div>
-
-      <!-- Monthly — featured -->
-      <div class="pricing-card featured">
-        <div class="featured-badge">Recommended</div>
-        <div class="pricing-card-name">Monthly Subscription</div>
+        <div class="pricing-card-name">Per Account</div>
         <div class="pricing-price">
-          <span id="monthly-price-display">&mdash;</span><span class="pricing-price-suffix">/mo</span>
+          &euro;600<span class="pricing-price-suffix">/mo</span>
         </div>
-        <p class="pricing-desc">Consistent pipeline activity. Month-to-month, no lock-in.</p>
+        <p class="pricing-desc">One LinkedIn account, fully managed. Add more whenever it makes sense.</p>
         <ul class="pricing-features">
-          <li>Everything in the trial, ongoing</li>
+          <li>12 touchpoints per account per month</li>
+          <li>Real-time activity dashboard</li>
           <li>Campaign strategy reviewed monthly</li>
           <li>Messaging adapted to what converts</li>
-          <li>Priority support</li>
           <li>Cancel with 30 days notice</li>
         </ul>
       </div>
 
-      <!-- Growth / Annual -->
-      <div class="pricing-card">
-        <div class="pricing-card-name">Growth — Annual</div>
+      <!-- 5 Accounts — featured -->
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most Chosen</div>
+        <div class="pricing-card-name">Full Team — 5 Accounts</div>
         <div class="pricing-price">
-          <span id="annual-price-display">&mdash;</span><span class="pricing-price-suffix">/mo</span>
+          &euro;3&rsquo;000<span class="pricing-price-suffix">/mo</span>
         </div>
-        <p class="pricing-desc">For companies ready to build a systematic, compounding pipeline.</p>
+        <p class="pricing-desc">Five accounts coordinated into one outreach operation. This is where it compounds.</p>
         <ul class="pricing-features">
-          <li>Everything in monthly</li>
-          <li>Quarterly expansion — add accounts as your team grows</li>
+          <li>60 touchpoints across 5 accounts</li>
+          <li>Cross-account campaign coordination</li>
           <li>Dedicated strategy review calls</li>
           <li>Content playbook built for your vertical</li>
-          <li>Billed annually — committed growth trajectory</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+
+      <!-- Trial -->
+      <div class="pricing-card">
+        <div class="pricing-card-name">Trial — First Month</div>
+        <div class="pricing-price">
+          &euro;0
+        </div>
+        <p class="pricing-desc">One month. Structured as a genuine proof of concept, not a teaser.</p>
+        <ul class="pricing-features">
+          <li>Up to 5 of your team's accounts activated</li>
+          <li>60 touchpoints over 30 days</li>
+          <li>Full transparency — same dashboard as paid</li>
+          <li><strong style="color:var(--ink)">If fewer than 5 qualified conversations: you pay nothing</strong></li>
+          <li>If 5+ delivered: per-account rate applies from month two</li>
         </ul>
       </div>
     </div>
@@ -1333,96 +1301,7 @@ footer {
   </div>
 </footer>
 
-<!-- ── Geo-Based Pricing JS ───────────────────────────────── -->
-<script>
-(function () {
-  // Region definitions: timezone → {label, trial, monthly, annual, symbol}
-  var REGIONS = {
-    CH: {
-      label: 'Switzerland',
-      symbol: 'CHF\u00A0',
-      trial:   '1\u2019500',
-      monthly: '1\u2019500',
-      annual:  '2\u2019200'
-    },
-    DE: {
-      label: 'Germany / Austria',
-      symbol: '\u20AC',
-      trial:   '1\u2019200',
-      monthly: '1\u2019200',
-      annual:  '1\u2019800'
-    },
-    EE: {
-      label: 'Eastern Europe',
-      symbol: '\u20AC',
-      trial:   '600',
-      monthly: '600',
-      annual:  '950'
-    },
-    ASIA: {
-      label: 'Asia / Rest of world',
-      symbol: 'USD\u00A0',
-      trial:   '400',
-      monthly: '400',
-      annual:  '650'
-    }
-  };
-
-  var DEFAULT = REGIONS.DE;
-
-  // Country code → region key
-  var COUNTRY_MAP = {
-    CH: 'CH', LI: 'CH',
-    DE: 'DE', AT: 'DE',
-    PL: 'EE', CZ: 'EE', SK: 'EE', HU: 'EE', RO: 'EE', BG: 'EE',
-    HR: 'EE', RS: 'EE', SI: 'EE', BA: 'EE', ME: 'EE', MK: 'EE',
-    AL: 'EE', XK: 'EE', MD: 'EE', UA: 'EE', BY: 'EE', LV: 'EE',
-    LT: 'EE', EE: 'EE'
-  };
-
-  // Asia/other timezone prefixes
-  var ASIA_TZ_RE = /^Asia\//;
-
-  function regionFromTz() {
-    var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone) || '';
-    if (/Europe\/Zurich/.test(tz)) return 'CH';
-    if (/Europe\/(Berlin|Vienna)/.test(tz)) return 'DE';
-    if (/Europe\/(Warsaw|Prague|Bratislava|Budapest|Bucharest|Sofia|Zagreb|Belgrade|Ljubljana|Sarajevo|Podgorica|Skopje|Tirane|Pristina|Chisinau|Kiev|Kyiv|Minsk|Riga|Vilnius|Tallinn)/.test(tz)) return 'EE';
-    if (ASIA_TZ_RE.test(tz)) return 'ASIA';
-    // Default for unrecognised European TZ → DE tier
-    if (/^Europe\//.test(tz)) return 'DE';
-    return null; // unknown — wait for IP
-  }
-
-  function applyRegion(key) {
-    var r = REGIONS[key] || DEFAULT;
-    document.getElementById('trial-price-display').textContent   = r.symbol + r.trial;
-    document.getElementById('monthly-price-display').textContent = r.symbol + r.monthly;
-    document.getElementById('annual-price-display').textContent  = r.symbol + r.annual;
-    document.getElementById('geo-label').textContent = 'Prices shown for: ' + r.label;
-  }
-
-  // Instant render from timezone
-  var tzRegion = regionFromTz();
-  applyRegion(tzRegion || 'DE');
-
-  // Refine with IP geolocation
-  fetch('https://api.country.is/')
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      var cc = d && d.country;
-      if (!cc) return;
-      var rk = COUNTRY_MAP[cc];
-      if (rk) {
-        applyRegion(rk);
-      } else if (ASIA_TZ_RE.test((Intl.DateTimeFormat().resolvedOptions().timeZone) || '')) {
-        applyRegion('ASIA');
-      }
-      // else keep timezone result
-    })
-    .catch(function () {});
-})();
-</script>
+<!-- Geo-pricing removed — flat EUR 600/account pricing -->
 
 <!-- ── Contact Form JS ────────────────────────────────────── -->
 <script>
