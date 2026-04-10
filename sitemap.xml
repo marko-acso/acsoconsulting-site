@@ -2,7 +2,12 @@
 <urlset xmlns="http://www.sitemapindex.org/schemas/sitemap/0.9">
   <url>
     <loc>https://acsoconsulting.com/</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://acsoconsulting.com/privacy.html</loc>
+    <lastmod>2026-04-10</lastmod>
+    <priority>0.3</priority>
   </url>
 </urlset>

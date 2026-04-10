@@ -9,6 +9,12 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://acsoconsulting.com/">
 <meta property="og:image" content="https://acsoconsulting.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Business Development Solutions — ACSO Consulting">
+<meta name="twitter:description" content="5 qualified conversations with decision-makers on your calendar, or you pay nothing.">
+<meta name="twitter:image" content="https://acsoconsulting.com/og-image.png">
 <link rel="canonical" href="https://acsoconsulting.com/">
 <title>Business Development Solutions — ACSO Consulting</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -119,7 +125,7 @@ nav {
   color: var(--green);
   text-decoration: none;
   border: 1px solid rgba(16,185,129,.4);
-  padding: 7px 16px;
+  padding: 12px 16px;
   border-radius: var(--radius);
   transition: background .2s, border-color .2s;
 }
@@ -873,6 +879,7 @@ footer {
   font-size: 0.78rem;
   color: var(--ink-light);
   text-decoration: none;
+  padding: 8px 0;
 }
 
 .footer-links a:hover { color: var(--ink-mid); }
@@ -995,6 +1002,85 @@ footer {
 @media (max-width: 768px) {
   .testimonial-grid { grid-template-columns: 1fr; }
 }
+
+/* ── Form Validation Errors ─────────────────────────────── */
+.form-error {
+  font-size: 0.78rem;
+  color: #EF4444;
+  margin-top: 5px;
+  display: none;
+}
+
+.form-group.has-error .form-error { display: block; }
+.form-group.has-error input,
+.form-group.has-error textarea { border-color: #EF4444; }
+
+/* ── Cookie Consent Banner ──────────────────────────────── */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--navy-mid);
+  border-top: 1px solid var(--rule);
+  padding: 18px 24px;
+  display: none;
+}
+
+.cookie-banner.visible { display: block; }
+
+.cookie-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cookie-inner p {
+  font-size: 0.84rem;
+  color: var(--ink-mid);
+  margin: 0;
+  flex: 1;
+  min-width: 240px;
+}
+
+.cookie-inner a { color: var(--blue); text-decoration: none; }
+
+.cookie-btns {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.cookie-btn {
+  font-family: var(--font);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.cookie-btn.accept {
+  background: var(--green);
+  color: #fff;
+}
+
+.cookie-btn.accept:hover { background: var(--green-dark); }
+
+.cookie-btn.decline {
+  background: transparent;
+  color: var(--ink-light);
+  border: 1px solid var(--rule);
+}
+
+.cookie-btn.decline:hover { background: rgba(255,255,255,.04); }
 </style>
 
 <!-- ── Structured Data ─────────────────────────────────────── -->
@@ -1005,6 +1091,7 @@ footer {
   "name": "ACSO Consulting",
   "legalName": "ACSO Consulting LTD",
   "url": "https://acsoconsulting.com",
+  "logo": "https://acsoconsulting.com/favicon.svg",
   "email": "info@acsoconsulting.com",
   "address": {
     "@type": "PostalAddress",
@@ -1039,15 +1126,21 @@ footer {
 }
 </script>
 
-<!-- ── Google Analytics (GA4) ───────────────────────────────── -->
-<!-- TODO: Replace G-KLF533BDNB with your GA4 Measurement ID -->
-<!-- Get it from: Google Analytics → Admin → Data Streams → Web → Measurement ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KLF533BDNB"></script>
+<!-- ── Google Analytics (GA4) — loaded only after cookie consent ── -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KLF533BDNB');
+  function loadGA4() {
+    if (document.getElementById('ga4-script')) return;
+    var s = document.createElement('script');
+    s.id = 'ga4-script';
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-KLF533BDNB';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-KLF533BDNB');
+  }
+  if (document.cookie.indexOf('cookie_consent=accepted') !== -1) loadGA4();
 </script>
 </head>
 <body>
@@ -1338,10 +1431,10 @@ footer {
       <!-- Trial -->
       <div class="pricing-card">
         <div class="pricing-card-name">Trial — First Month</div>
-        <div class="pricing-price">
-          &euro;0
+        <div class="pricing-price" style="font-size:1.8rem">
+          Proof of Concept
         </div>
-        <p class="pricing-desc">One month. Structured as a genuine proof of concept, not a teaser.</p>
+        <p class="pricing-desc">30 days. If we deliver fewer than 5 qualified conversations, you pay nothing. If we deliver, per-account pricing applies from month two.</p>
         <ul class="pricing-features">
           <li>Up to 5 of your team's accounts activated</li>
           <li>60 touchpoints over 30 days</li>
@@ -1434,14 +1527,17 @@ footer {
           <div class="form-group">
             <label for="f-name">Name</label>
             <input type="text" id="f-name" name="name" placeholder="Your full name" autocomplete="name" required>
+            <span class="form-error">Please enter your name.</span>
           </div>
           <div class="form-group">
             <label for="f-email">Work email</label>
             <input type="email" id="f-email" name="email" placeholder="you@company.com" autocomplete="email" required>
+            <span class="form-error">Please enter a valid email address.</span>
           </div>
           <div class="form-group">
             <label for="f-company">Company</label>
             <input type="text" id="f-company" name="company" placeholder="Company name" autocomplete="organization" required>
+            <span class="form-error">Please enter your company name.</span>
           </div>
           <div class="form-group">
             <label for="f-phone">Phone <span style="font-weight:400;color:var(--ink-light);text-transform:none;letter-spacing:0">(optional)</span></label>
@@ -1476,6 +1572,7 @@ footer {
           <a href="mailto:info@acsoconsulting.com">info@acsoconsulting.com</a>
           <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
+          <a href="privacy.html">Privacy</a>
         </div>
       </div>
       <div class="footer-meta">
@@ -1504,8 +1601,8 @@ footer {
 
     if (!name || !email || !company) {
       [['#f-name', name], ['#f-email', email], ['#f-company', company]].forEach(function (pair) {
-        var el = form.querySelector(pair[0]);
-        el.style.borderColor = pair[1] ? '' : '#EF4444';
+        var group = form.querySelector(pair[0]).closest('.form-group');
+        if (!pair[1]) { group.classList.add('has-error'); } else { group.classList.remove('has-error'); }
       });
       return;
     }
@@ -1525,17 +1622,9 @@ footer {
       alert(data.message || 'Something went wrong. Please try again.');
     })
     .catch(function () {
-      // Fallback: mailto if server is unreachable
-      var body = encodeURIComponent(
-        'Name: ' + name + '\n' +
-        'Email: ' + email + '\n' +
-        'Company: ' + company + '\n' +
-        'Phone: ' + (form.querySelector('#f-phone').value.trim() || 'not provided') + '\n\n' +
-        'Context:\n' + (form.querySelector('#f-context').value.trim() || '\u2014')
-      );
-      window.location.href = 'mailto:info@acsoconsulting.com?subject=' +
-        encodeURIComponent('BDS inquiry from ' + company) + '&body=' + body;
-      showSuccess();
+      btn.disabled = false;
+      btn.textContent = 'Send — no commitment attached';
+      alert('The form could not be submitted. Please email us directly at info@acsoconsulting.com and we will respond within one business day.');
     });
   });
 
@@ -1546,7 +1635,38 @@ footer {
   }
 
   form.querySelectorAll('input, textarea').forEach(function (el) {
-    el.addEventListener('input', function () { el.style.borderColor = ''; });
+    el.addEventListener('input', function () { el.closest('.form-group').classList.remove('has-error'); });
+  });
+})();
+</script>
+
+<!-- ── Cookie Consent Banner ──────────────────────────────── -->
+<div class="cookie-banner" id="cookie-banner">
+  <div class="cookie-inner">
+    <p>We use cookies for analytics to understand how visitors use this site. <a href="privacy.html">Privacy policy</a></p>
+    <div class="cookie-btns">
+      <button class="cookie-btn decline" id="cookie-decline">Decline</button>
+      <button class="cookie-btn accept" id="cookie-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var banner = document.getElementById('cookie-banner');
+  if (document.cookie.indexOf('cookie_consent=') === -1) {
+    banner.classList.add('visible');
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', function () {
+    document.cookie = 'cookie_consent=accepted;max-age=31536000;path=/;SameSite=Lax';
+    banner.classList.remove('visible');
+    loadGA4();
+  });
+
+  document.getElementById('cookie-decline').addEventListener('click', function () {
+    document.cookie = 'cookie_consent=declined;max-age=31536000;path=/;SameSite=Lax';
+    banner.classList.remove('visible');
   });
 })();
 </script>
