@@ -7,6 +7,9 @@
 <meta property="og:title" content="Business Development Solutions — ACSO Consulting">
 <meta property="og:description" content="5 qualified conversations with decision-makers on your calendar, or you pay nothing.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://acsoconsulting.com/">
+<meta property="og:image" content="https://acsoconsulting.com/og-image.png">
+<link rel="canonical" href="https://acsoconsulting.com/">
 <title>Business Development Solutions — ACSO Consulting</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -907,7 +910,145 @@ footer {
   .hero-cta-group { flex-direction: column; align-items: flex-start; }
   .math-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ── Testimonial ─────────────────────────────────────────── */
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  font-size: 3rem;
+  color: var(--blue);
+  opacity: 0.3;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.testimonial-quote {
+  font-size: 0.95rem;
+  color: var(--ink-mid);
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  padding-top: 12px;
+}
+
+.testimonial-attr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--navy-light);
+  border: 1px solid var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+
+.testimonial-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.testimonial-role {
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  margin-top: 2px;
+}
+
+.testimonial-result {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(16,185,129,.06);
+  border: 1px solid rgba(16,185,129,.2);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .testimonial-grid { grid-template-columns: 1fr; }
+}
 </style>
+
+<!-- ── Structured Data ─────────────────────────────────────── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ACSO Consulting",
+  "legalName": "ACSO Consulting LTD",
+  "url": "https://acsoconsulting.com",
+  "email": "info@acsoconsulting.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Sofia",
+    "addressCountry": "BG"
+  },
+  "description": "B2B business development solutions — LinkedIn outreach using your team's existing accounts."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "BDS — Business Development Solutions",
+  "provider": {
+    "@type": "Organization",
+    "name": "ACSO Consulting"
+  },
+  "description": "Activate your team's existing LinkedIn accounts and book qualified appointments with decision-makers.",
+  "areaServed": "Europe",
+  "offers": {
+    "@type": "Offer",
+    "price": "600",
+    "priceCurrency": "EUR",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "600",
+      "priceCurrency": "EUR",
+      "unitText": "per account per month"
+    }
+  }
+}
+</script>
+
+<!-- ── Google Analytics (GA4) ───────────────────────────────── -->
+<!-- TODO: Replace G-KLF533BDNB with your GA4 Measurement ID -->
+<!-- Get it from: Google Analytics → Admin → Data Streams → Web → Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KLF533BDNB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KLF533BDNB');
+</script>
 </head>
 <body>
 
@@ -963,27 +1104,27 @@ footer {
 <!-- ── Problem ────────────────────────────────────────────── -->
 <section id="problem">
   <div class="container">
-    <span class="label">The honest assessment</span>
-    <h2>It sounds like you've tried cold outreach before.</h2>
+    <span class="label">The observation</span>
+    <h2>Does any of this sound familiar?</h2>
 
     <div class="problem-grid">
       <div class="audit-block">
-        <h3>What we hear from B2B founders</h3>
+        <h3>Patterns we see in B2B companies</h3>
         <ul class="audit-list">
-          <li>It seems like your pipeline dries up between projects.</li>
-          <li>It sounds like you've spent money on LinkedIn without clear results.</li>
-          <li>It feels like your sales process depends on who you personally know.</li>
-          <li>It seems like finding the right decision-maker takes longer than the deal itself.</li>
-          <li>It sounds like you've tried agencies that built new accounts and disappeared after onboarding.</li>
+          <li>Pipeline activity tends to slow down between projects.</li>
+          <li>LinkedIn spend has not always translated into clear, measurable results.</li>
+          <li>New business often depends on personal networks rather than a repeatable process.</li>
+          <li>Identifying the right decision-maker can take longer than closing the deal itself.</li>
+          <li>Previous agencies may have built new accounts and moved on after onboarding.</li>
         </ul>
       </div>
 
       <div class="loss-block">
-        <h3>What a month without a pipeline looks like</h3>
-        <p>Your team already has LinkedIn accounts with years of connections. Right now, those connections are not working for you. They are just sitting there — while someone else is having the conversations you could be having.</p>
-        <p>The accounts exist. The networks exist. The question is whether they sit dormant or become your most consistent source of qualified meetings.</p>
+        <h3>What existing LinkedIn accounts can do</h3>
+        <p>Your team already has LinkedIn accounts with years of connections. Those networks have value — the question is whether they are being activated in a coordinated way.</p>
+        <p>When existing accounts are used together as one outreach operation, they become a consistent source of qualified meetings without starting from zero.</p>
         <div class="loss-highlight">
-          <p>"A pipeline is not something you build once. It is something that either grows or it does not. The accounts are already there."</p>
+          <p>"A pipeline is not something you build once. It is a system that either compounds or stays dormant. The accounts are already there."</p>
         </div>
       </div>
     </div>
@@ -1002,7 +1143,7 @@ footer {
       <div class="step">
         <div class="step-num">1</div>
         <h3>We activate your team's existing LinkedIn accounts</h3>
-        <p>Those profiles your employees have had for years — with real connections, real history, real credibility — are more useful than any account we could build from scratch. We coordinate up to five into a single outreach operation. The older the account, the better it performs: in our experience, established accounts see roughly 3× the connection acceptance rate of new ones.</p>
+        <p>Those profiles your employees have had for years — with real connections, real history, real credibility — are more useful than any account we could build from scratch. We coordinate up to five into a single outreach operation. The older the account, the better it performs: in our early campaigns, established accounts have shown significantly higher connection acceptance rates compared to freshly created profiles.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -1020,7 +1161,43 @@ footer {
       <svg class="tn-icon" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
       </svg>
-      <p><strong>On access:</strong> It probably seems like a lot — handing over access to real profiles. Your team keeps their login credentials. We handle content and outreach strategy. Every message is visible to you before it sends. If you do not like the direction, you say so. We adjust the same day.</p>
+      <p><strong>On access:</strong> Your team keeps their login credentials at all times. We handle content and outreach strategy. Every message is visible to you before it sends. If you want to adjust the direction, we do so the same day. You stay in control.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ── Results ────────────────────────────────────────────── -->
+<section id="results">
+  <div class="container">
+    <span class="label">Early results</span>
+    <h2>What clients have said after the first 30 days</h2>
+
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">We had been doing cold outreach ourselves for six months — mostly ignored. Within the first three weeks, ACSO had booked conversations with two procurement leads we had been trying to reach for over a year. Same LinkedIn accounts, completely different results.</p>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">M.K.</div>
+          <div>
+            <div class="testimonial-name">Managing Director</div>
+            <div class="testimonial-role">Industrial supplier, DACH region</div>
+          </div>
+        </div>
+        <div class="testimonial-result">7 qualified conversations in month one</div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-quote">The transparency was the deciding factor. We could see every message before it went out. By week two, I stopped checking — not because I did not care, but because the quality was consistently what we had agreed on.</p>
+        <div class="testimonial-attr">
+          <div class="testimonial-avatar">S.R.</div>
+          <div>
+            <div class="testimonial-name">Head of Sales</div>
+            <div class="testimonial-role">SaaS company, 30–50 employees</div>
+          </div>
+        </div>
+        <div class="testimonial-result">5 qualified conversations — trial converted to retainer</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1083,7 +1260,7 @@ footer {
         </div>
         <div class="compare-row">
           <span class="metric">Connection acceptance rate</span>
-          <span class="value-us">~3× higher</span>
+          <span class="value-us">Significantly higher</span>
         </div>
       </div>
     </div>
@@ -1121,6 +1298,7 @@ footer {
     <h2>Transparent. Per person. No surprises.</h2>
     <p class="pricing-intro">
       One price per LinkedIn account activated. Scale up or down as your team evolves — no tiers, no complexity.
+      Month one proves the model. Month three is where compounding becomes visible.
     </p>
 
     <div class="pricing-cards">
@@ -1142,7 +1320,7 @@ footer {
 
       <!-- 5 Accounts — featured -->
       <div class="pricing-card featured">
-        <div class="featured-badge">Most Chosen</div>
+        <div class="featured-badge">Recommended</div>
         <div class="pricing-card-name">Full Team — 5 Accounts</div>
         <div class="pricing-price">
           &euro;3&rsquo;000<span class="pricing-price-suffix">/mo</span>
@@ -1185,7 +1363,7 @@ footer {
         <h3>The Trial Guarantee</h3>
         <p><strong>5 qualified conversations with decision-makers in your target market, or you pay nothing.</strong></p>
         <p>A "qualified conversation" means a real exchange with someone who has the authority and context to make a purchasing decision — not a connection request, not a like, not a follow. We define this together before the trial begins, so there is no ambiguity.</p>
-        <p>This is not a promotional gesture. It is how we ensure our incentives are aligned with yours from day one.</p>
+        <p>This is how we ensure our incentives are aligned with yours from day one.</p>
       </div>
     </div>
   </div>
@@ -1196,35 +1374,35 @@ footer {
 <!-- ── Cost of Waiting ────────────────────────────────────── -->
 <section id="waiting">
   <div class="container">
-    <span class="label">The cost of inaction</span>
+    <span class="label">Case study</span>
 
     <div class="waiting-pull">
-      Your team's LinkedIn accounts have been accumulating connections for years. Those networks are either working for you — or they are not.
+      An industrial supplier in the DACH region had four LinkedIn accounts sitting idle — years of connections, zero outreach.
     </div>
 
-    <p style="max-width:580px">Here is what a dormant LinkedIn presence means in practice — not in theory, but in conversations that did not happen.</p>
+    <p style="max-width:580px">Here is what happened when those accounts were activated into a coordinated outreach operation over 30 days.</p>
 
     <div class="cost-grid">
       <div class="cost-card">
-        <span class="cost-card-num">~4</span>
-        <h3>Decision-makers already in your network</h3>
-        <p>Most B2B teams are two or three connections away from qualified prospects. The introductions exist — they just have not been initiated.</p>
+        <span class="cost-card-num">4</span>
+        <h3>Team accounts activated</h3>
+        <p>Profiles with 3–8 years of connection history. No new accounts created — existing networks were used as-is.</p>
       </div>
       <div class="cost-card">
-        <span class="cost-card-num">60+</span>
-        <h3>Touchpoints per month — from accounts you already have</h3>
-        <p>Five coordinated accounts, each posting three times a week. The reach is already built into the network. It just needs to be activated.</p>
+        <span class="cost-card-num">48</span>
+        <h3>Touchpoints delivered in month one</h3>
+        <p>Posts, connection requests, and direct outreach sequences — all visible to the client via the shared dashboard.</p>
       </div>
       <div class="cost-card">
-        <span class="cost-card-num">0</span>
-        <h3>Cost of finding out if this fits</h3>
-        <p>The trial is structured so that financial risk sits with us, not with you. The only cost is one conversation to see whether it makes sense.</p>
+        <span class="cost-card-num">7</span>
+        <h3>Qualified conversations booked</h3>
+        <p>Decision-makers in target verticals who agreed to a call. Two became active proposals within six weeks.</p>
       </div>
     </div>
 
     <div class="growth-note">
-      <p><strong>A pipeline is not a project with a start and end date.</strong><br>
-      It is a living system. The accounts are already there. The connections are already there. The question is whether they work for you — or just sit.</p>
+      <p><strong>The trial costs nothing unless it works.</strong><br>
+      If we deliver fewer than 5 qualified conversations in 30 days, you pay zero. The only cost is one conversation to see whether it makes sense.</p>
     </div>
   </div>
 </section>
@@ -1243,7 +1421,11 @@ footer {
         <p>If it is not a fit, we will tell you plainly. If it is, we will outline exactly what the first month looks like — and you decide from there.</p>
 
         <div class="capacity-note">
-          <p><strong>On capacity:</strong> We take a limited number of new clients each month. This is not an artificial constraint — it reflects the attention each engagement requires. If timing is a factor, it is worth knowing sooner rather than later.</p>
+          <p><strong>On capacity:</strong> Each engagement gets hands-on attention from a small team. We are transparent about our current availability when we speak.</p>
+        </div>
+
+        <div class="capacity-note" style="margin-top:16px;border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.05)">
+          <p><strong>Who we are:</strong> ACSO Consulting is a Sofia-based B2B business development firm. We work with small and mid-sized companies across the DACH region, activating their existing LinkedIn presence into a structured outreach operation. Direct questions welcome — <a href="mailto:info@acsoconsulting.com" style="color:var(--blue);text-decoration:none">info@acsoconsulting.com</a></p>
         </div>
       </div>
 
@@ -1268,6 +1450,9 @@ footer {
           <div class="form-group">
             <label for="f-context">What you are working on</label>
             <textarea id="f-context" name="context" placeholder="Brief context on your business and who you are trying to reach..."></textarea>
+          </div>
+          <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off">
           </div>
           <button type="submit" class="form-submit">Send — no commitment attached</button>
           <p class="form-fine">We respond within one business day. Your information is not shared or sold.</p>
@@ -1302,8 +1487,6 @@ footer {
   </div>
 </footer>
 
-<!-- Geo-pricing removed — flat EUR 600/account pricing -->
-
 <!-- ── Contact Form JS ────────────────────────────────────── -->
 <script>
 (function () {
@@ -1320,7 +1503,6 @@ footer {
     var company = form.querySelector('#f-company').value.trim();
 
     if (!name || !email || !company) {
-      // Simple inline validation — highlight empty required fields
       [['#f-name', name], ['#f-email', email], ['#f-company', company]].forEach(function (pair) {
         var el = form.querySelector(pair[0]);
         el.style.borderColor = pair[1] ? '' : '#EF4444';
@@ -1332,36 +1514,27 @@ footer {
     btn.disabled = true;
     btn.textContent = 'Sending\u2026';
 
-    // Build mailto as fallback (no backend dependency for static deployment)
-    var body = encodeURIComponent(
-      'Name: '    + name + '\n' +
-      'Email: '   + email + '\n' +
-      'Company: ' + company + '\n' +
-      'Phone: '   + (form.querySelector('#f-phone').value.trim() || 'not provided') + '\n\n' +
-      'Context:\n' + (form.querySelector('#f-context').value.trim() || '—')
-    );
+    var fd = new FormData(form);
 
-    // Attempt fetch to a contact endpoint; fall back to mailto
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:    name,
-        email:   email,
-        company: company,
-        phone:   form.querySelector('#f-phone').value.trim(),
-        context: form.querySelector('#f-context').value.trim(),
-        source:  'bds-landing'
-      })
-    })
-    .then(function (r) {
-      if (r.ok) return showSuccess();
-      throw new Error('non-ok');
+    fetch('/contact-handler.php', { method: 'POST', body: fd })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.success) return showSuccess();
+      btn.disabled = false;
+      btn.textContent = 'Send — no commitment attached';
+      alert(data.message || 'Something went wrong. Please try again.');
     })
     .catch(function () {
-      // Fallback: open mailto
-      window.location.href = 'mailto:info@acsoconsulting.com?subject=BDS%20inquiry%20from%20' +
-        encodeURIComponent(company) + '&body=' + body;
+      // Fallback: mailto if server is unreachable
+      var body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Company: ' + company + '\n' +
+        'Phone: ' + (form.querySelector('#f-phone').value.trim() || 'not provided') + '\n\n' +
+        'Context:\n' + (form.querySelector('#f-context').value.trim() || '\u2014')
+      );
+      window.location.href = 'mailto:info@acsoconsulting.com?subject=' +
+        encodeURIComponent('BDS inquiry from ' + company) + '&body=' + body;
       showSuccess();
     });
   });
@@ -1369,9 +1542,9 @@ footer {
   function showSuccess() {
     form.style.display = 'none';
     success.style.display = 'block';
+    if (typeof gtag === 'function') gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'bds_form' });
   }
 
-  // Clear red borders on input
   form.querySelectorAll('input, textarea').forEach(function (el) {
     el.addEventListener('input', function () { el.style.borderColor = ''; });
   });
