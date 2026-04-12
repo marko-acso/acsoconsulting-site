@@ -1,0 +1,49 @@
+ErrorDocument 404 /404.html
+ErrorDocument 410 /404.html
+
+# Permanently gone — old WordPress paths (return 410 Gone for fast deindex)
+RedirectMatch 410 ^/team/.*$
+RedirectMatch 410 ^/faq-items/.*$
+RedirectMatch 410 ^/wp-content/.*$
+RedirectMatch 410 ^/wp-admin/.*$
+RedirectMatch 410 ^/wp-includes/.*$
+RedirectMatch 410 ^/wp-json/.*$
+RedirectMatch 410 ^/photo-gallery/.*$
+RedirectMatch 410 ^/clients/.*$
+RedirectMatch 410 ^/[0-9]{4}/[0-9]{2}/.*$
+RedirectMatch 410 ^/feed/?$
+RedirectMatch 410 ^/comments/feed/?$
+
+# Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Force non-www (canonical)
+RewriteCond %{HTTP_HOST} ^www\.acsoconsulting\.com$ [NC]
+RewriteRule ^(.*)$ https://acsoconsulting.com/$1 [L,R=301]
+
+# Strip index.html
+RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+RewriteRule ^index\.html$ / [R=301,L]
+
+# Strip legacy WP query params (lang, gallery, p) — 301 to clean root
+RewriteCond %{QUERY_STRING} (^|&)(lang|gallery|p|page_id|cat|m|s)= [NC]
+RewriteRule ^$ /? [R=301,L]
+
+# Cache static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
