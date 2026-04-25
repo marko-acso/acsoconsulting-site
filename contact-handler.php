@@ -6,7 +6,7 @@
  */
 
 // ── Config ──────────────────────────────────────────────────────────────
-define('ADMIN_EMAIL', 'info@acsoconsulting.com');
+define('ADMIN_EMAIL', 'marko.markovic@acsoconsulting.com');
 define('SITE_NAME',   'ACSO Consulting');
 
 header('Content-Type: application/json; charset=utf-8');
@@ -83,7 +83,7 @@ $adminBody = "New BDS inquiry.\n\n"
     . "----------\n\n"
     . "Reply directly to this email to respond to $name.\n";
 
-$adminHeaders = "From: ACSO BDS <info@acsoconsulting.com>\r\n"
+$adminHeaders = "From: ACSO BDS <marko.markovic@acsoconsulting.com>\r\n"
     . "Reply-To: $name <$email>\r\n"
     . "Content-Type: text/plain; charset=UTF-8\r\n";
 
@@ -99,8 +99,8 @@ $senderBody = "Dear $name,\n\n"
     . "ACSO Consulting\n"
     . "acsoconsulting.com\n";
 
-$senderHeaders = "From: ACSO Consulting <info@acsoconsulting.com>\r\n"
-    . "Reply-To: info@acsoconsulting.com\r\n"
+$senderHeaders = "From: ACSO Consulting <marko.markovic@acsoconsulting.com>\r\n"
+    . "Reply-To: marko.markovic@acsoconsulting.com\r\n"
     . "Content-Type: text/plain; charset=UTF-8\r\n";
 
 @mail($email, $senderSubject, $senderBody, $senderHeaders);

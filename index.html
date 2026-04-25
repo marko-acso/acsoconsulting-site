@@ -1005,7 +1005,11 @@ footer {
   "name": "ACSO Consulting",
   "legalName": "ACSO Consulting LTD",
   "url": "https://acsoconsulting.com",
-  "email": "info@acsoconsulting.com",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "url": "https://acsoconsulting.com/#contact"
+  },
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Sofia",
@@ -1039,16 +1043,8 @@ footer {
 }
 </script>
 
-<!-- ── Google Analytics (GA4) ───────────────────────────────── -->
-<!-- TODO: Replace G-KLF533BDNB with your GA4 Measurement ID -->
-<!-- Get it from: Google Analytics → Admin → Data Streams → Web → Measurement ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KLF533BDNB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-KLF533BDNB');
-</script>
+<!-- ── Analytics + Consent (GA4 + Clarity, Consent Mode v2) ───── -->
+<script src="/js/cookie-consent.js"></script>
 </head>
 <body>
 
@@ -1425,7 +1421,7 @@ footer {
         </div>
 
         <div class="capacity-note" style="margin-top:16px;border-color:rgba(59,130,246,.25);background:rgba(59,130,246,.05)">
-          <p><strong>Who we are:</strong> ACSO Consulting is a Sofia-based B2B business development firm. We work with small and mid-sized companies across the DACH region, activating their existing LinkedIn presence into a structured outreach operation. Direct questions welcome — <a href="mailto:info@acsoconsulting.com" style="color:var(--blue);text-decoration:none">info@acsoconsulting.com</a></p>
+          <p><strong>Who we are:</strong> ACSO Consulting is a Sofia-based B2B business development firm. We work with small and mid-sized companies across the DACH region, activating their existing LinkedIn presence into a structured outreach operation. Direct questions welcome — <a href="#contact" style="color:var(--blue);text-decoration:none">use the contact form</a>.</p>
         </div>
       </div>
 
@@ -1473,9 +1469,11 @@ footer {
       <div>
         <div class="footer-brand">ACSO <span>Consulting</span></div>
         <div class="footer-links" style="margin-top:10px">
-          <a href="mailto:info@acsoconsulting.com">info@acsoconsulting.com</a>
-          <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
+          <a href="#pricing">Pricing</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="#" onclick="acsoCookieReset();return false;">Cookies</a>
         </div>
       </div>
       <div class="footer-meta">
@@ -1525,17 +1523,9 @@ footer {
       alert(data.message || 'Something went wrong. Please try again.');
     })
     .catch(function () {
-      // Fallback: mailto if server is unreachable
-      var body = encodeURIComponent(
-        'Name: ' + name + '\n' +
-        'Email: ' + email + '\n' +
-        'Company: ' + company + '\n' +
-        'Phone: ' + (form.querySelector('#f-phone').value.trim() || 'not provided') + '\n\n' +
-        'Context:\n' + (form.querySelector('#f-context').value.trim() || '\u2014')
-      );
-      window.location.href = 'mailto:info@acsoconsulting.com?subject=' +
-        encodeURIComponent('BDS inquiry from ' + company) + '&body=' + body;
-      showSuccess();
+      btn.disabled = false;
+      btn.textContent = 'Send — no commitment attached';
+      alert('Connection issue. Please try again in a moment.');
     });
   });
 
