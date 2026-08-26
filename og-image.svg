@@ -8,8 +8,8 @@
     <circle cx="1200" cy="630" r="160" fill="none" stroke="#E8EDF4" stroke-width="60"/>
   </g>
   <text x="80" y="260" font-family="system-ui,-apple-system,sans-serif" font-size="72" font-weight="800" fill="#E8EDF4" letter-spacing="-0.02em">ACSO <tspan fill="#3B82F6">Consulting</tspan></text>
-  <text x="80" y="330" font-family="system-ui,-apple-system,sans-serif" font-size="32" fill="#A8BBCF" letter-spacing="0.04em">Business Development Solutions</text>
+  <text x="80" y="330" font-family="system-ui,-apple-system,sans-serif" font-size="32" fill="#A8BBCF" letter-spacing="0.04em">KI-Kompetenz &amp; AI-Act-Compliance</text>
   <line x1="80" y1="370" x2="200" y2="370" stroke="#3B82F6" stroke-width="3"/>
-  <text x="80" y="420" font-family="system-ui,-apple-system,sans-serif" font-size="24" fill="#6B82A0">5 qualified conversations with decision-makers</text>
-  <text x="80" y="455" font-family="system-ui,-apple-system,sans-serif" font-size="24" fill="#6B82A0">on your calendar, or you pay nothing.</text>
+  <text x="80" y="420" font-family="system-ui,-apple-system,sans-serif" font-size="24" fill="#6B82A0">Workshop, KI-Richtlinie und Schulungsnachweis</text>
+  <text x="80" y="455" font-family="system-ui,-apple-system,sans-serif" font-size="24" fill="#6B82A0">nach EU AI Act, Artikel 4 - an einem Tag.</text>
 </svg>

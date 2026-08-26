@@ -1,12 +1,12 @@
 <?php
 /**
- * ACSO Consulting — BDS Contact Form Handler
+ * ACSO Consulting - Contact Form Handler
  * Receives POST with name, email, company, phone, context.
  * Sends admin notification and sender confirmation.
  */
 
 // ── Config ──────────────────────────────────────────────────────────────
-define('ADMIN_EMAIL', 'marko.markovic@acsoconsulting.com');
+define('ADMIN_EMAIL', 'marco@acsoconsulting.com');
 define('SITE_NAME',   'ACSO Consulting');
 
 header('Content-Type: application/json; charset=utf-8');
@@ -31,7 +31,7 @@ if (!$originOk) {
 }
 
 // ── Rate limiting (5 per IP per hour) ──────────────────────────────────
-$rateDir = sys_get_temp_dir() . '/acso_bds_rate/';
+$rateDir = sys_get_temp_dir() . '/acso_rate/';
 if (!is_dir($rateDir)) mkdir($rateDir, 0755, true);
 $rateFile = $rateDir . md5($_SERVER['REMOTE_ADDR'] ?? '0') . '.json';
 $rateData = file_exists($rateFile) ? json_decode(file_get_contents($rateFile), true) : [];
@@ -69,38 +69,38 @@ if (!empty($errors)) {
 $ts = date('Y-m-d H:i:s');
 
 // ── Email to admin ─────────────────────────────────────────────────────
-$adminSubject = "BDS inquiry from $company ($name)";
+$adminSubject = "Anfrage über acsoconsulting.com: $company ($name)";
 
-$adminBody = "New BDS inquiry.\n\n"
+$adminBody = "Neue Anfrage über acsoconsulting.com.\n\n"
     . "Name: $name\n"
     . "Email: $email\n"
     . "Company: $company\n"
     . "Phone: " . ($phone ?: 'not provided') . "\n"
-    . "Time: $ts\n\n"
-    . "Context:\n"
+    . "Zeit: $ts\n\n"
+    . "Nachricht:\n"
     . "----------\n"
-    . ($context ?: '—') . "\n"
+    . ($context ?: '-') . "\n"
     . "----------\n\n"
-    . "Reply directly to this email to respond to $name.\n";
+    . "Antworten Sie direkt auf diese E-Mail, um $name zu erreichen.\n";
 
-$adminHeaders = "From: ACSO BDS <marko.markovic@acsoconsulting.com>\r\n"
+$adminHeaders = "From: ACSO Consulting <marco@acsoconsulting.com>\r\n"
     . "Reply-To: $name <$email>\r\n"
     . "Content-Type: text/plain; charset=UTF-8\r\n";
 
 @mail(ADMIN_EMAIL, $adminSubject, $adminBody, $adminHeaders);
 
 // ── Confirmation email to sender ───────────────────────────────────────
-$senderSubject = "We received your message — ACSO Consulting";
+$senderSubject = "Ihre Anfrage ist angekommen - ACSO Consulting";
 
-$senderBody = "Dear $name,\n\n"
-    . "Thank you for reaching out. We received your inquiry and will be in touch within one business day.\n\n"
-    . "If anything else comes to mind in the meantime, feel free to reply to this email.\n\n"
-    . "Warm regards,\n"
+$senderBody = "Guten Tag $name,\n\n"
+    . "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb eines Werktags bei Ihnen.\n\n"
+    . "Falls Ihnen in der Zwischenzeit noch etwas einfällt, antworten Sie einfach auf diese E-Mail.\n\n"
+    . "Mit besten Grüßen\n"
     . "ACSO Consulting\n"
     . "acsoconsulting.com\n";
 
-$senderHeaders = "From: ACSO Consulting <marko.markovic@acsoconsulting.com>\r\n"
-    . "Reply-To: marko.markovic@acsoconsulting.com\r\n"
+$senderHeaders = "From: ACSO Consulting <marco@acsoconsulting.com>\r\n"
+    . "Reply-To: marco@acsoconsulting.com\r\n"
     . "Content-Type: text/plain; charset=UTF-8\r\n";
 
 @mail($email, $senderSubject, $senderBody, $senderHeaders);

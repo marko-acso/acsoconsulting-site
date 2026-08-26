@@ -133,17 +133,17 @@
     var banner = document.createElement('div');
     banner.id = 'acso-cookie-banner';
     banner.setAttribute('role', 'dialog');
-    banner.setAttribute('aria-label', 'Cookie consent');
+    banner.setAttribute('aria-label', 'Cookie-Einwilligung');
     banner.innerHTML = [
       '<p>',
-      '  We collect anonymous usage stats to improve the site. ',
-      '  Click <strong>Accept</strong> to also allow personalised analytics ',
-      '  (Google Analytics + Microsoft Clarity session replay). ',
-      '  See our <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms</a>.',
+      '  Wir erfassen anonyme Nutzungsdaten, um die Website zu verbessern. ',
+      '  Klicken Sie auf <strong>Akzeptieren</strong>, um zusätzlich personalisierte Analyse ',
+      '  (Google Analytics + Microsoft Clarity Sitzungsaufzeichnung) zuzulassen. ',
+      '  Siehe unsere <a href="/privacy.html">Datenschutzerklärung</a> und <a href="/terms.html">AGB</a>.',
       '</p>',
       '<div class="acso-cookie-actions">',
-      '  <button class="acso-btn-reject" id="acso-cookie-reject" aria-label="Reject non-essential cookies">Reject</button>',
-      '  <button class="acso-btn-accept" id="acso-cookie-accept" aria-label="Accept cookies">Accept</button>',
+      '  <button class="acso-btn-reject" id="acso-cookie-reject" aria-label="Nicht notwendige Cookies ablehnen">Ablehnen</button>',
+      '  <button class="acso-btn-accept" id="acso-cookie-accept" aria-label="Cookies akzeptieren">Akzeptieren</button>',
       '</div>'
     ].join('');
 
