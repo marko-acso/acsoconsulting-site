@@ -50,11 +50,17 @@ if (!empty($_POST['website'])) {
 }
 
 // ── Collect & validate fields ──────────────────────────────────────────
-$name    = str_replace(["\r", "\n", "\t"], '', trim($_POST['name']    ?? ''));
-$email   = trim($_POST['email']   ?? '');
-$company = str_replace(["\r", "\n", "\t"], '', trim($_POST['company'] ?? ''));
-$phone   = str_replace(["\r", "\n", "\t"], '', trim($_POST['phone']   ?? ''));
-$context = trim($_POST['context'] ?? '');
+$name     = str_replace(["\r", "\n", "\t"], '', trim($_POST['name']     ?? ''));
+$email    = trim($_POST['email']    ?? '');
+$company  = str_replace(["\r", "\n", "\t"], '', trim($_POST['company']  ?? ''));
+$phone    = str_replace(["\r", "\n", "\t"], '', trim($_POST['phone']    ?? ''));
+$product  = str_replace(["\r", "\n", "\t"], '', trim($_POST['product']  ?? ''));
+$presence = str_replace(["\r", "\n", "\t"], '', trim($_POST['presence'] ?? ''));
+$extract  = !empty($_POST['extract']);
+$context  = trim($_POST['context'] ?? '');
+
+$lang = strtolower(trim($_POST['lang'] ?? 'de'));
+if (!in_array($lang, ['de', 'it'], true)) $lang = 'de';
 
 $errors = [];
 if ($name === '')    $errors[] = 'Name is required.';
@@ -69,13 +75,16 @@ if (!empty($errors)) {
 $ts = date('Y-m-d H:i:s');
 
 // ── Email to admin ─────────────────────────────────────────────────────
-$adminSubject = "Anfrage über acsoconsulting.com: $company ($name)";
+$adminSubject = "[" . strtoupper($lang) . "] Anfrage über acsoconsulting.com: $company ($name)";
 
-$adminBody = "Neue Anfrage über acsoconsulting.com.\n\n"
+$adminBody = "Neue Anfrage über acsoconsulting.com (Sprache: $lang).\n\n"
     . "Name: $name\n"
     . "Email: $email\n"
     . "Company: $company\n"
     . "Phone: " . ($phone ?: 'not provided') . "\n"
+    . "Produkt: " . ($product ?: '-') . "\n"
+    . "Präsenz BG: " . ($presence ?: '-') . "\n"
+    . "TED-Auszug angefordert: " . ($extract ? 'JA' : 'nein') . "\n"
     . "Zeit: $ts\n\n"
     . "Nachricht:\n"
     . "----------\n"
@@ -90,14 +99,39 @@ $adminHeaders = "From: ACSO Consulting <marco@acsoconsulting.com>\r\n"
 @mail(ADMIN_EMAIL, $adminSubject, $adminBody, $adminHeaders);
 
 // ── Confirmation email to sender ───────────────────────────────────────
-$senderSubject = "Ihre Anfrage ist angekommen - ACSO Consulting";
+if ($lang === 'it') {
+    $senderSubject = "Richiesta ricevuta - ACSO Consulting";
 
-$senderBody = "Guten Tag $name,\n\n"
-    . "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb eines Werktags bei Ihnen.\n\n"
-    . "Falls Ihnen in der Zwischenzeit noch etwas einfällt, antworten Sie einfach auf diese E-Mail.\n\n"
-    . "Mit besten Grüßen\n"
-    . "ACSO Consulting\n"
-    . "acsoconsulting.com\n";
+    $senderBody = "Gentile $name,\n\n"
+        . "la Sua richiesta è arrivata. Viene ricontattato entro un giorno lavorativo.\n\n"
+        . "Come promesso sulla pagina, ecco subito gli estremi per verificare la società "
+        . "prima ancora di parlarci:\n\n"
+        . "  Denominazione: ACSO Consulting EOOD\n"
+        . "  Numero di registrazione (ЕИК): 201054736\n"
+        . "  Sede: Sofia, Bulgaria\n"
+        . "  Registro di commercio: https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg\n\n"
+        . "Il registro è pubblico, gratuito e consultabile in inglese: cerchi per numero di "
+        . "registrazione e trova denominazione, sede, forma giuridica e amministratore. "
+        . "È l'equivalente della visura camerale.\n\n"
+        . ($extract
+            ? "Ha chiesto anche l'estratto TED gratuito sui Suoi codici CPV. Arriva insieme alla "
+              . "prima risposta. Se ha i codici a portata di mano, li scriva rispondendo a questa "
+              . "e-mail; altrimenti si ricavano da quello che costruisce.\n\n"
+            : "")
+        . "Se nel frattempo Le viene in mente altro, risponda pure a questa e-mail.\n\n"
+        . "Cordiali saluti\n"
+        . "ACSO Consulting\n"
+        . "acsoconsulting.com\n";
+} else {
+    $senderSubject = "Ihre Anfrage ist angekommen - ACSO Consulting";
+
+    $senderBody = "Guten Tag $name,\n\n"
+        . "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb eines Werktags bei Ihnen.\n\n"
+        . "Falls Ihnen in der Zwischenzeit noch etwas einfällt, antworten Sie einfach auf diese E-Mail.\n\n"
+        . "Mit besten Grüßen\n"
+        . "ACSO Consulting\n"
+        . "acsoconsulting.com\n";
+}
 
 $senderHeaders = "From: ACSO Consulting <marco@acsoconsulting.com>\r\n"
     . "Reply-To: marco@acsoconsulting.com\r\n"

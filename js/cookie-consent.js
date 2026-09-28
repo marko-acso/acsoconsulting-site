@@ -1,5 +1,5 @@
 /**
- * ACSO Consulting — Cookie Consent (Google Consent Mode v2)
+ * ACSO Consulting - Cookie Consent (Google Consent Mode v2)
  *
  * GA4 loads with consent defaults = "denied" → anonymized cookieless pings
  * under legitimate interest. On Accept, consent is upgraded → full tracking.
@@ -130,20 +130,37 @@
     ].join('\n');
     document.head.appendChild(style);
 
+    var I18N = {
+      de: {
+        dialog: 'Cookie-Einwilligung',
+        body: 'Wir erfassen anonyme Nutzungsdaten, um die Website zu verbessern. ' +
+              'Klicken Sie auf <strong>Akzeptieren</strong>, um zusätzlich personalisierte Analyse ' +
+              '(Google Analytics + Microsoft Clarity Sitzungsaufzeichnung) zuzulassen. ' +
+              'Siehe unsere <a href="/privacy.html">Datenschutzerklärung</a> und <a href="/terms.html">AGB</a>.',
+        reject: 'Ablehnen', rejectAria: 'Nicht notwendige Cookies ablehnen',
+        accept: 'Akzeptieren', acceptAria: 'Cookies akzeptieren'
+      },
+      it: {
+        dialog: 'Consenso ai cookie',
+        body: 'Raccogliamo dati di utilizzo anonimi per migliorare il sito. ' +
+              'Clicchi su <strong>Accetto</strong> per consentire anche l’analisi personalizzata ' +
+              '(Google Analytics + registrazione di sessione Microsoft Clarity). ' +
+              'Si veda l’<a href="/it/privacy.html">informativa privacy</a> e le <a href="/it/condizioni.html">condizioni</a>.',
+        reject: 'Rifiuto', rejectAria: 'Rifiuta i cookie non necessari',
+        accept: 'Accetto', acceptAria: 'Accetta i cookie'
+      }
+    };
+    var t = I18N[(document.documentElement.lang || 'de').slice(0, 2).toLowerCase()] || I18N.de;
+
     var banner = document.createElement('div');
     banner.id = 'acso-cookie-banner';
     banner.setAttribute('role', 'dialog');
-    banner.setAttribute('aria-label', 'Cookie-Einwilligung');
+    banner.setAttribute('aria-label', t.dialog);
     banner.innerHTML = [
-      '<p>',
-      '  Wir erfassen anonyme Nutzungsdaten, um die Website zu verbessern. ',
-      '  Klicken Sie auf <strong>Akzeptieren</strong>, um zusätzlich personalisierte Analyse ',
-      '  (Google Analytics + Microsoft Clarity Sitzungsaufzeichnung) zuzulassen. ',
-      '  Siehe unsere <a href="/privacy.html">Datenschutzerklärung</a> und <a href="/terms.html">AGB</a>.',
-      '</p>',
+      '<p>', t.body, '</p>',
       '<div class="acso-cookie-actions">',
-      '  <button class="acso-btn-reject" id="acso-cookie-reject" aria-label="Nicht notwendige Cookies ablehnen">Ablehnen</button>',
-      '  <button class="acso-btn-accept" id="acso-cookie-accept" aria-label="Cookies akzeptieren">Akzeptieren</button>',
+      '  <button class="acso-btn-reject" id="acso-cookie-reject" aria-label="' + t.rejectAria + '">' + t.reject + '</button>',
+      '  <button class="acso-btn-accept" id="acso-cookie-accept" aria-label="' + t.acceptAria + '">' + t.accept + '</button>',
       '</div>'
     ].join('');
 
