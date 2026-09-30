@@ -58,9 +58,15 @@ $product  = str_replace(["\r", "\n", "\t"], '', trim($_POST['product']  ?? ''));
 $presence = str_replace(["\r", "\n", "\t"], '', trim($_POST['presence'] ?? ''));
 $extract  = !empty($_POST['extract']);
 $context  = trim($_POST['context'] ?? '');
+$country  = str_replace(["\r", "\n", "\t"], '', trim($_POST['country']  ?? ''));
 
 $lang = strtolower(trim($_POST['lang'] ?? 'de'));
-if (!in_array($lang, ['de', 'it'], true)) $lang = 'de';
+if (!in_array($lang, ['de', 'it', 'en'], true)) $lang = 'de';
+
+// Which country page the form was submitted from (at, de, it, en). Distinguishes
+// the Austrian from the German page, which both post lang=de.
+$page = strtolower(trim($_POST['page'] ?? ''));
+if (!preg_match('/^[a-z]{2}$/', $page)) $page = '';
 
 $errors = [];
 if ($name === '')    $errors[] = 'Name is required.';
@@ -75,12 +81,14 @@ if (!empty($errors)) {
 $ts = date('Y-m-d H:i:s');
 
 // ── Email to admin ─────────────────────────────────────────────────────
-$adminSubject = "[" . strtoupper($lang) . "] Anfrage über acsoconsulting.com: $company ($name)";
+$tag = strtoupper($lang) . ($page && $page !== $lang ? '/' . strtoupper($page) : '');
+$adminSubject = "[$tag] Anfrage über acsoconsulting.com: $company ($name)";
 
-$adminBody = "Neue Anfrage über acsoconsulting.com (Sprache: $lang).\n\n"
+$adminBody = "Neue Anfrage über acsoconsulting.com (Sprache: $lang, Seite: " . ($page ?: '-') . ").\n\n"
     . "Name: $name\n"
     . "Email: $email\n"
     . "Company: $company\n"
+    . "Land: " . ($country ?: '-') . "\n"
     . "Phone: " . ($phone ?: 'not provided') . "\n"
     . "Produkt: " . ($product ?: '-') . "\n"
     . "Präsenz BG: " . ($presence ?: '-') . "\n"
@@ -122,11 +130,47 @@ if ($lang === 'it') {
         . "Cordiali saluti\n"
         . "ACSO Consulting\n"
         . "acsoconsulting.com\n";
+} elseif ($lang === 'en') {
+    $senderSubject = "Your enquiry has arrived - ACSO Consulting";
+
+    $senderBody = "Dear $name,\n\n"
+        . "your enquiry has arrived. You will be contacted within one working day.\n\n"
+        . "As promised on the page, here are the details to check the company before you have "
+        . "even spoken to anyone:\n\n"
+        . "  Company name: ACSO Consulting EOOD\n"
+        . "  Registration number: 201054736\n"
+        . "  Registered office: Sofia, Bulgaria\n"
+        . "  Commercial Register: https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg\n\n"
+        . "The register is public, free and available in English: search by registration number "
+        . "and you get the company name, registered office, legal form and managing director.\n\n"
+        . ($extract
+            ? "You also asked for the free TED extract on your CPV codes. It comes with the first "
+              . "reply. If you have the codes to hand, write them in a reply to this e-mail; "
+              . "otherwise they are derived from what you build.\n\n"
+            : "")
+        . "If anything else comes to mind in the meantime, simply reply to this e-mail.\n\n"
+        . "Kind regards\n"
+        . "ACSO Consulting\n"
+        . "acsoconsulting.com\n";
 } else {
     $senderSubject = "Ihre Anfrage ist angekommen - ACSO Consulting";
 
     $senderBody = "Guten Tag $name,\n\n"
-        . "vielen Dank für Ihre Nachricht. Wir haben Ihre Anfrage erhalten und melden uns innerhalb eines Werktags bei Ihnen.\n\n"
+        . "Ihre Anfrage ist angekommen. Sie hören innerhalb eines Werktags von uns.\n\n"
+        . "Wie auf der Seite zugesagt, hier sofort die Angaben, mit denen Sie das Unternehmen "
+        . "prüfen können, bevor Sie überhaupt mit jemandem gesprochen haben:\n\n"
+        . "  Firmenname: ACSO Consulting EOOD\n"
+        . "  Registernummer: 201054736\n"
+        . "  Sitz: Sofia, Bulgarien\n"
+        . "  Handelsregister: https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg\n\n"
+        . "Das Register ist öffentlich, kostenlos und auf Englisch abfragbar: Suche nach der "
+        . "Registernummer, und Sie sehen Firmenname, Sitz, Rechtsform und Geschäftsführer. "
+        . "Es entspricht dem Handelsregisterauszug.\n\n"
+        . ($extract
+            ? "Sie haben außerdem den kostenlosen TED-Auszug zu Ihren CPV-Codes angefordert. Er kommt "
+              . "mit der ersten Antwort. Wenn Sie die Codes zur Hand haben, schreiben Sie sie einfach "
+              . "als Antwort auf diese E-Mail; andernfalls werden sie aus dem abgeleitet, was Sie bauen.\n\n"
+            : "")
         . "Falls Ihnen in der Zwischenzeit noch etwas einfällt, antworten Sie einfach auf diese E-Mail.\n\n"
         . "Mit besten Grüßen\n"
         . "ACSO Consulting\n"

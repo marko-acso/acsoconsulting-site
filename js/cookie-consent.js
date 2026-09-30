@@ -106,18 +106,18 @@
       '  transition: opacity 0.3s ease, transform 0.3s ease;',
       '}',
       '#acso-cookie-banner p { margin: 0; flex: 1 1 280px; color: #A8BBCF; }',
-      '#acso-cookie-banner a { color: #3B82F6; text-decoration: underline; text-underline-offset: 2px; }',
-      '#acso-cookie-banner a:hover { color: #60A5FA; }',
+      '#acso-cookie-banner a { color: #60A5FA; text-decoration: underline; text-underline-offset: 2px; }',
+      '#acso-cookie-banner a:hover { color: #93C5FD; }',
       '.acso-cookie-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }',
       '.acso-btn-accept {',
-      '  padding: 9px 22px; background: #3B82F6; color: #fff; border: none;',
+      '  padding: 9px 22px; background: #2563EB; color: #fff; border: none;',
       '  border-radius: 8px; font-family: inherit; font-size: 0.875rem;',
       '  font-weight: 600; cursor: pointer; transition: background 0.15s;',
       '}',
-      '.acso-btn-accept:hover { background: #2563EB; }',
+      '.acso-btn-accept:hover { background: #1D4ED8; }',
       '.acso-btn-reject {',
       '  padding: 9px 22px; background: transparent; color: #A8BBCF;',
-      '  border: 1.5px solid #1E3050; border-radius: 8px;',
+      '  border: 1.5px solid #64748B; border-radius: 8px;',
       '  font-family: inherit; font-size: 0.875rem; font-weight: 500;',
       '  cursor: pointer; transition: border-color 0.15s, color 0.15s;',
       '}',
@@ -148,6 +148,15 @@
               'Si veda l’<a href="/it/privacy.html">informativa privacy</a> e le <a href="/it/condizioni.html">condizioni</a>.',
         reject: 'Rifiuto', rejectAria: 'Rifiuta i cookie non necessari',
         accept: 'Accetto', acceptAria: 'Accetta i cookie'
+      },
+      en: {
+        dialog: 'Cookie consent',
+        body: 'We collect anonymous usage data to improve the site. ' +
+              'Click <strong>Accept</strong> to also allow personalised analytics ' +
+              '(Google Analytics + Microsoft Clarity session recording). ' +
+              'See our <a href="/en/privacy.html">privacy notice</a> and <a href="/en/terms.html">terms</a>.',
+        reject: 'Reject', rejectAria: 'Reject non-essential cookies',
+        accept: 'Accept', acceptAria: 'Accept cookies'
       }
     };
     var t = I18N[(document.documentElement.lang || 'de').slice(0, 2).toLowerCase()] || I18N.de;
