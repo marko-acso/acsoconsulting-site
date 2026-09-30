@@ -34,6 +34,8 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3{color:var(--navy-2);line-height:1.2;font-weight:700}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--navy);color:#fff;padding:10px 18px;border-radius:0 0 6px 0;font-size:14.5px;font-weight:600}
+  .skip:focus{left:0}
 
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:18px}
@@ -155,7 +157,7 @@
   .form-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 30px;box-shadow:0 8px 30px rgba(0,51,102,.06)}
   .form-group{margin-bottom:17px}
   .form-group label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:6px}
-  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #9aa8b6;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #767676;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
   .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--navy);outline:2px solid var(--navy);outline-offset:2px}
   .form-group textarea{resize:vertical;min-height:88px}
   .form-submit{width:100%;background:var(--navy);color:#fff;font-size:15.5px;font-weight:700;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;margin-top:4px}
@@ -165,6 +167,9 @@
   .form-check{display:flex;gap:10px;align-items:flex-start;margin:4px 0 16px;font-size:13.5px;color:var(--mut);line-height:1.5;cursor:pointer}
   .form-check input{margin-top:3px;width:16px;height:16px;flex:0 0 auto;accent-color:var(--navy)}
   .form-check b{color:var(--ink)}
+  .form-error{display:none;margin:2px 0 14px;padding:11px 14px;border:1px solid #9b2220;border-radius:8px;background:#fdecea;color:#7f1d1b;font-size:13.5px;line-height:1.5}
+  .form-error.on{display:block}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .form-success{display:none;text-align:center;padding:36px 16px}
   .form-success h3{color:var(--navy);font-size:20px;margin-bottom:8px}
   .form-success p{color:var(--mut);font-size:15px}
@@ -237,6 +242,8 @@
 </head>
 <body>
 
+<a class="skip" href="#main">Vai al contenuto</a>
+
 <header>
   <div class="wrap nav">
     <a href="/it/rappresentanza-bulgaria.html" class="brand">ACSO CONSULTING<small>MACCHINE E IMPIANTI &middot; MERCATO BULGARO</small></a>
@@ -256,6 +263,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -298,7 +307,7 @@
       <li><strong>Due</strong> sono macchine nuove vinte davvero da un fornitore estero: un modulo rotativo
           di alta precisione da 101.702 EUR al Politecnico di Sofia, aggiudicato alla filiale polacca di
           GF Machining Solutions nell&rsquo;ambito di un progetto finanziato dal PNRR bulgaro, e tre
-          bracci a benna per rottami da 211.764 EUR al Porto di Varna, a una societ&agrave; lettone.</li>
+          polipi idraulici per rottame da 211.764 EUR al Porto di Varna, a una societ&agrave; lettone.</li>
     </ul>
 
     <div class="punch">
@@ -310,19 +319,17 @@
          Vincono dove hanno una struttura locale. Nei macchinari non ce l&rsquo;hanno.</p>
     </div>
 
-    <p style="margin-top:28px"><strong>E prima che lo verifichi da solo: la Bulgaria &egrave; il pi&ugrave;
-       chiuso dei mercati confrontabili.</strong> Il 97,4% delle aggiudicazioni bulgare per macchinari va a un
-       operatore bulgaro. Con la stessa query, cambiando solo il paese: Italia 95,2%, Polonia 95,2%, Romania
-       95,6%, Ungheria 95,0%, Germania 90,6%. Due punti sembrano pochi. Sono la differenza fra un mercato in
-       cui il fornitore locale &egrave; la Sua azienda e uno in cui non &egrave; nessuno.</p>
+    <p style="margin-top:28px"><strong>E prima che lo verifichi da solo: il 97,4% delle aggiudicazioni
+       bulgare per macchinari va a un operatore bulgaro.</strong> Su questo indicatore quasi tutti gli
+       Stati membri stanno in alto, quindi il dato da solo non dimostra nulla. Conta che cosa fosse il
+       restante 2,6%, una volta aperti e letti tutti e quattordici gli avvisi.</p>
 
     <div class="method">
       <b>Metodo, cos&igrave; lo pu&ograve; rifare.</b> Fonte: TED (Tenders Electronic Daily), Unione Europea,
       API v3. Query: <code>notice-type IN (can-standard) AND buyer-country IN (BGR) AND classification-cpv
       IN (42*) AND publication-date&gt;=20240101 AND publication-date&lt;=20260922</code>. Estrazione del
       26.09.2026. Denominatore: i soli 545 avvisi su 740 che dichiarano il paese del fornitore; gli altri 195
-      non lo riportano e sono stati esclusi, non ignorati. Il confronto fra paesi usa la stessa identica query
-      cambiando solo <code>buyer-country</code>. I totali crescono a ogni nuova pubblicazione: se ne trova
+      non lo riportano e sono stati esclusi, non ignorati. I totali crescono a ogni nuova pubblicazione: se ne trova
       qualcuno in pi&ugrave;, vuol dire che la query &egrave; quella giusta.
       <b>Su richiesta viene inviato l&rsquo;estratto per i Suoi codici CPV, gratis e senza impegno.</b>
     </div>
@@ -419,17 +426,17 @@
           <li><b>Prima chiamata in italiano</b>, senza intermediari e senza traduzioni di seconda mano.
               Lingue di lavoro: italiano, tedesco, inglese, serbo, bulgaro.</li>
         </ul>
-        <p class="note">Gli estremi di registrazione non sono pubblicati in chiaro su questa pagina, per non
-           esporli alla raccolta automatica. La denominazione per&ograve; &egrave; qui sotto nel pi&egrave; di
-           pagina: la cerchi adesso nel
+        <p class="note">Non prenda nulla di tutto questo per fede: con la prima risposta riceve il numero di
+           registrazione e un estratto del registro, e verifica la societ&agrave; da s&eacute; nel
            <a href="https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg" target="_blank" rel="noopener">Registro
-           di commercio bulgaro</a>, sezione in inglese, ricerca per denominazione. Sono trenta secondi e non
-           deve scrivere a nessuno.</p>
+           di commercio bulgaro</a>, sezione in inglese. Cerchi per numero di registrazione: la ricerca per
+           denominazione &egrave; meno affidabile, restituisce corrispondenze parziali o pi&ugrave; risultati,
+           anche per effetto della traslitterazione dal cirillico.</p>
       </div>
 
       <div class="facts">
-        <div class="fact"><div class="big">545</div><div class="lbl">aggiudicazioni bulgare di macchinari esaminate una per una</div></div>
-        <div class="fact"><div class="big">0</div><div class="lbl">vinte da un costruttore italiano</div></div>
+        <div class="fact"><div class="big">545</div><div class="lbl">aggiudicazioni bulgare di macchinari con il paese del fornitore indicato; le 14 straniere lette una per una</div></div>
+        <div class="fact"><div class="big">0</div><div class="lbl">di quelle 545 vinte da un costruttore italiano</div></div>
         <div class="fact"><div class="big">394/81</div><div class="lbl">il Fondo SIMEST che finanzia l&rsquo;incarico: ACSO ne ha i requisiti di societ&agrave; di servizi</div></div>
         <div class="fact"><div class="big">0 EUR</div><div class="lbl">l&rsquo;estratto TED sui Suoi codici CPV, prima di qualsiasi impegno</div></div>
       </div>
@@ -665,19 +672,23 @@
         <form id="contact-form" novalidate>
           <div class="form-group">
             <label for="f-name">Nome e cognome</label>
-            <input type="text" id="f-name" name="name" placeholder="Il Suo nome" autocomplete="name" required>
+            <input type="text" id="f-name" name="name" placeholder="Il Suo nome" autocomplete="name" required aria-describedby="h-name">
+            <span class="sr-only" id="h-name">Campo obbligatorio: nome e cognome del referente.</span>
           </div>
           <div class="form-group">
             <label for="f-email">E-mail aziendale</label>
-            <input type="email" id="f-email" name="email" placeholder="nome@azienda.it" autocomplete="email" required>
+            <input type="email" id="f-email" name="email" placeholder="nome@azienda.it" autocomplete="email" required aria-describedby="h-email">
+            <span class="sr-only" id="h-email">Campo obbligatorio: indirizzo e-mail aziendale al quale viene inviata la risposta.</span>
           </div>
           <div class="form-group">
             <label for="f-company">Azienda</label>
-            <input type="text" id="f-company" name="company" placeholder="Ragione sociale" autocomplete="organization" required>
+            <input type="text" id="f-company" name="company" placeholder="Ragione sociale" autocomplete="organization" required aria-describedby="h-company">
+            <span class="sr-only" id="h-company">Campo obbligatorio: ragione sociale dell&rsquo;azienda.</span>
           </div>
           <div class="form-group">
             <label for="f-product">Che cosa costruisce</label>
-            <input type="text" id="f-product" name="product" placeholder="Es. linee di foratura e taglio per profilati" required>
+            <input type="text" id="f-product" name="product" placeholder="Es. linee di foratura e taglio per profilati" required aria-describedby="h-product">
+            <span class="sr-only" id="h-product">Campo obbligatorio: la macchina o l&rsquo;impianto che costruisce, per esempio linee di foratura e taglio per profilati.</span>
           </div>
           <div class="form-group">
             <label for="f-presence">Ha gi&agrave; qualcuno in Bulgaria?</label>
@@ -709,6 +720,7 @@
           <div style="position:absolute;left:-9999px" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off">
           </div>
+          <p class="form-error" id="form-error" role="alert"></p>
           <button type="submit" class="form-submit">Richieda la chiamata di 30 minuti</button>
           <p class="form-fine">Risposta entro un giorno lavorativo. I Suoi dati non vengono ceduti n&eacute;
              venduti: <a href="/it/privacy.html">informativa privacy</a>.</p>
@@ -731,6 +743,8 @@
     <a href="#contatto" class="btn">Parliamone: 30 minuti</a>
   </div>
 </div>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -757,9 +771,10 @@
       </div>
     </div>
     <div class="legal">
-      ACSO Consulting EOOD &middot; societ&agrave; di diritto bulgaro, iscritta al Registro di commercio,
-      sede a Sofia.<br>
-      Estremi di registrazione e visura forniti al primo contatto.<br>
+      ACSO Consulting EOOD &middot; societ&agrave; di diritto bulgaro iscritta al Registro di commercio presso
+      la Registry Agency &middot; sede: Sofia, Bulgaria.<br>
+      La societ&agrave; non &egrave; registrata ai fini IVA e non dispone di partita IVA. Numero di
+      registrazione ed estratto del registro Le vengono trasmessi con la prima risposta.<br>
       &copy; <span id="yr"></span> ACSO Consulting. Tutti i diritti riservati.
     </div>
   </div>
@@ -772,11 +787,24 @@
   var form    = document.getElementById('contact-form');
   var success = document.getElementById('form-success');
   var btn     = form && form.querySelector('.form-submit');
+  var errBox  = document.getElementById('form-error');
   if (!form || !success || !btn) return;
 
   function val(sel) {
     var el = form.querySelector(sel);
     return el ? el.value.trim() : '';
+  }
+
+  function showError(msg) {
+    if (!errBox) return;
+    errBox.className = 'form-error on';
+    errBox.textContent = msg;
+  }
+
+  function clearError() {
+    if (!errBox) return;
+    errBox.className = 'form-error';
+    errBox.textContent = '';
   }
 
   form.addEventListener('submit', function (e) {
@@ -794,10 +822,13 @@
         el.style.borderColor = pair[1] ? '' : '#EF4444';
         el.setAttribute('aria-invalid', pair[1] ? 'false' : 'true');
       });
+      showError('Compili i campi obbligatori evidenziati: nome e cognome, e-mail aziendale, azienda e che cosa costruisce.');
       var first = form.querySelector('[aria-invalid="true"]');
       if (first) first.focus();
       return;
     }
+
+    clearError();
 
     var LABEL = btn.dataset.label || btn.textContent;
     btn.dataset.label = LABEL;
@@ -816,12 +847,12 @@
       if (data.success) return showSuccess();
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert(data.message || 'Qualcosa non ha funzionato. Riprovi, per favore.');
+      showError(data.message || 'Qualcosa non ha funzionato. La preghiamo di riprovare.');
     })
     .catch(function () {
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert('Problema di connessione. Riprovi tra un momento.');
+      showError('Problema di connessione. La preghiamo di riprovare tra qualche istante.');
     });
   });
 
@@ -845,7 +876,7 @@
   }
 
   form.querySelectorAll('input, textarea, select').forEach(function (el) {
-    el.addEventListener('input', function () { el.style.borderColor = ''; el.removeAttribute('aria-invalid'); });
+    el.addEventListener('input', function () { el.style.borderColor = ''; el.removeAttribute('aria-invalid'); clearError(); });
   });
 })();
 </script>

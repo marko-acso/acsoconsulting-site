@@ -8,7 +8,7 @@
 <meta property="og:description" content="Ihr Team nutzt KI. Ist es dafür geschult - und rechtssicher? Workshop, KI-Richtlinie und Schulungsnachweis nach EU AI Act, Artikel 4 - an einem Tag.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://acsoconsulting.com/ai-act/">
-<meta property="og:image" content="https://acsoconsulting.com/og-image.png">
+<meta property="og:image" content="https://acsoconsulting.com/ai-act/og-aiact.png">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://acsoconsulting.com/ai-act/">
 <title>KI-Kompetenz & AI-Act-Compliance für den Mittelstand - ACSO Consulting</title>
@@ -23,6 +23,9 @@
   html{scroll-behavior:smooth}
   body{font-family:"Segoe UI",Calibri,Arial,system-ui,sans-serif;color:var(--ink);line-height:1.6;background:var(--white)}
   a{color:inherit;text-decoration:none}
+  /* Sichtbarer Tastatur-Fokus (WCAG 2.2, 2.4.7 und 2.4.11) */
+  :focus-visible{outline:3px solid #0B5FFF;outline-offset:2px}
+  .wedge :focus-visible,.why :focus-visible,.cta :focus-visible,footer :focus-visible{outline-color:#FFD34D}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3{color:var(--navy-2);line-height:1.2;font-weight:700}
 
@@ -108,7 +111,7 @@
   .form-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:34px 30px;box-shadow:0 8px 30px rgba(0,51,102,.06)}
   .form-group{margin-bottom:18px}
   .form-group label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:6px}
-  .form-group input,.form-group textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s;outline:none}
+  .form-group input,.form-group textarea{width:100%;background:#fff;border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
   .form-group input:focus,.form-group textarea:focus{border-color:var(--navy)}
   .form-group textarea{resize:vertical;min-height:92px}
   .form-submit{width:100%;background:var(--navy);color:#fff;font-size:15.5px;font-weight:700;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;margin-top:4px}
@@ -131,7 +134,10 @@
   .foot .brand{color:#fff;font-size:17px}
   .foot a{color:#8ea0b4}
   .foot a:hover{color:#fff}
-  .footer-links{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
+  .footer-links{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap;align-items:center}
+  .linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--navy);text-decoration:underline;cursor:pointer}
+  .footer-links .linkbtn{color:#8ea0b4}
+  .footer-links .linkbtn:hover{color:#fff}
   .legal{color:#5f7185;font-size:12.5px;margin-top:18px;line-height:1.7}
 </style>
 
@@ -366,7 +372,8 @@
             <input type="text" name="website" tabindex="-1" autocomplete="off">
           </div>
           <button type="submit" class="form-submit">Absenden - unverbindlich</button>
-          <p class="form-fine">Wir antworten innerhalb eines Werktags. Ihre Angaben werden nicht weitergegeben oder verkauft.</p>
+          <p class="form-fine">Wir antworten innerhalb eines Werktags. Ihre Angaben werden nicht weitergegeben oder verkauft:
+             <a href="/privacy.html">Datenschutzerkl&auml;rung</a>.</p>
         </form>
         <div class="form-success" id="form-success">
           <h3>Nachricht erhalten.</h3>
@@ -397,7 +404,7 @@
           <a href="#pakete">Pakete</a>
           <a href="/privacy.html">Datenschutz</a>
           <a href="/terms.html">AGB</a>
-          <a href="#" onclick="acsoCookieReset();return false;">Cookies</a>
+          <button type="button" class="linkbtn" onclick="if(window.acsoCookieReset)acsoCookieReset();">Cookie-Einwilligung widerrufen</button>
         </div>
       </div>
       <div style="text-align:right">
@@ -405,7 +412,9 @@
       </div>
     </div>
     <div class="legal">
-      ACSO Consulting · EU-Beratung seit 2009<br>
+      ACSO Consulting EOOD · EU-Beratung seit 2009<br>
+      Eingetragen im bulgarischen Handelsregister bei der Registeragentur (Agentsia po vpisvaniyata), Sitz: Sofia, Bulgarien.<br>
+      Die Gesellschaft ist nicht umsatzsteuerlich registriert; eine USt-IdNr. besteht nicht. Registernummer und Registerauszug teilen wir mit der ersten Antwort mit.<br>
       &copy; <span id="yr"></span> ACSO Consulting. Alle Rechte vorbehalten.
     </div>
   </div>

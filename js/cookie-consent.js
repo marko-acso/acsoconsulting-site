@@ -1,9 +1,8 @@
 /**
  * ACSO Consulting - Cookie Consent (Google Consent Mode v2)
  *
- * GA4 loads with consent defaults = "denied" → anonymized cookieless pings
- * under legitimate interest. On Accept, consent is upgraded → full tracking.
- * Clarity (session replay) is gated behind explicit Accept.
+ * Nothing loads before the visitor accepts. GA4 and Clarity are both injected
+ * only on explicit Accept. Reject and "not yet decided" load neither.
  *
  * Consent stored in localStorage key: "acso_cookie_consent"
  * Values: "accepted" | "rejected" | undefined (not yet decided)
@@ -32,8 +31,10 @@
     security_storage: 'granted',
     wait_for_update: 500
   });
+  // Kept because it only ever redacts ad identifiers, never enables them.
+  // url_passthrough is deliberately absent: it writes gclid into URLs, which
+  // is ad tracking by another route and is not covered by the banner.
   gtag('set', 'ads_data_redaction', true);
-  gtag('set', 'url_passthrough', true);
 
   function loadGA() {
     if (document.querySelector('script[src*="googletagmanager"]')) return;
@@ -42,18 +43,13 @@
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
     document.head.appendChild(s);
     gtag('js', new Date());
-    gtag('config', GA_ID, { anonymize_ip: true });
+    gtag('config', GA_ID);
   }
-  loadGA();
 
+  // Only analytics is ever granted. The banner asks for Google Analytics and
+  // Clarity and nothing else, so the advertising signals stay denied for good.
   function grantConsent() {
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted',
-      analytics_storage: 'granted',
-      personalization_storage: 'granted'
-    });
+    gtag('consent', 'update', { analytics_storage: 'granted' });
   }
 
   function loadClarity() {
@@ -67,6 +63,7 @@
 
   if (storedConsent === 'accepted') {
     grantConsent();
+    loadGA();
     loadClarity();
   }
 
@@ -75,6 +72,7 @@
     hideBanner();
     if (value === 'accepted') {
       grantConsent();
+      loadGA();
       loadClarity();
     }
   }
@@ -97,6 +95,9 @@
       '  position: fixed; bottom: 0; left: 0; right: 0; z-index: 99999;',
       '  display: flex; align-items: center; justify-content: space-between;',
       '  flex-wrap: wrap; gap: 12px; padding: 14px 24px;',
+      // At 400% zoom the text reflows tall enough to bury the page, and a
+      // fixed element cannot be scrolled past. Cap it and let it scroll.
+      '  max-height: 45vh; overflow-y: auto;',
       '  background: #162234; color: #E8EDF4;',
       '  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;',
       '  font-size: 0.875rem; line-height: 1.5;',
@@ -109,19 +110,22 @@
       '#acso-cookie-banner a { color: #60A5FA; text-decoration: underline; text-underline-offset: 2px; }',
       '#acso-cookie-banner a:hover { color: #93C5FD; }',
       '.acso-cookie-actions { display: flex; gap: 10px; flex-shrink: 0; flex-wrap: wrap; }',
-      '.acso-btn-accept {',
-      '  padding: 9px 22px; background: #2563EB; color: #fff; border: none;',
-      '  border-radius: 8px; font-family: inherit; font-size: 0.875rem;',
-      '  font-weight: 600; cursor: pointer; transition: background 0.15s;',
+      // Reject has to carry the same visual weight as Accept: same size, same
+      // font weight, both solid. A ghost button next to a filled one is the
+      // nudge the EDPB treats as invalidating the consent it collects.
+      '.acso-btn-accept, .acso-btn-reject {',
+      '  padding: 9px 22px; color: #fff; border: none; border-radius: 8px;',
+      '  font-family: inherit; font-size: 0.875rem; font-weight: 600;',
+      '  cursor: pointer; transition: background 0.15s;',
       '}',
+      '.acso-btn-accept { background: #2563EB; }',
       '.acso-btn-accept:hover { background: #1D4ED8; }',
-      '.acso-btn-reject {',
-      '  padding: 9px 22px; background: transparent; color: #A8BBCF;',
-      '  border: 1.5px solid #64748B; border-radius: 8px;',
-      '  font-family: inherit; font-size: 0.875rem; font-weight: 500;',
-      '  cursor: pointer; transition: border-color 0.15s, color 0.15s;',
+      '.acso-btn-reject { background: #475569; }',
+      '.acso-btn-reject:hover { background: #3B4657; }',
+      '.acso-btn-accept:focus-visible, .acso-btn-reject:focus-visible {',
+      '  outline: 3px solid #93C5FD; outline-offset: 2px;',
       '}',
-      '.acso-btn-reject:hover { border-color: #3B82F6; color: #E8EDF4; }',
+      '#acso-cookie-banner a:focus-visible { outline: 3px solid #93C5FD; outline-offset: 2px; }',
       '@media (max-width: 600px) {',
       '  #acso-cookie-banner { padding: 14px 16px; }',
       '  .acso-cookie-actions { width: 100%; }',
@@ -133,43 +137,52 @@
     var I18N = {
       de: {
         dialog: 'Cookie-Einwilligung',
-        body: 'Wir erfassen anonyme Nutzungsdaten, um die Website zu verbessern. ' +
-              'Klicken Sie auf <strong>Akzeptieren</strong>, um zusätzlich personalisierte Analyse ' +
-              '(Google Analytics + Microsoft Clarity Sitzungsaufzeichnung) zuzulassen. ' +
-              'Siehe unsere <a href="/privacy.html">Datenschutzerklärung</a> und <a href="/terms.html">AGB</a>.',
-        reject: 'Ablehnen', rejectAria: 'Nicht notwendige Cookies ablehnen',
-        accept: 'Akzeptieren', acceptAria: 'Cookies akzeptieren'
+        body: 'Ohne Ihre Zustimmung werden keine Analyse-Cookies gesetzt und keine ' +
+              'Nutzungsdaten an Dritte übermittelt. Klicken Sie auf <strong>Akzeptieren</strong>, ' +
+              'um Google Analytics und Microsoft Clarity (Sitzungsaufzeichnung) zuzulassen. ' +
+              'Wenn Sie ablehnen, wird nichts geladen. ' +
+              'Einzelheiten in unserer <a href="/privacy.html">Datenschutzerklärung</a> und in unseren <a href="/terms.html">AGB</a>.',
+        reject: 'Ablehnen',
+        accept: 'Akzeptieren'
       },
       it: {
         dialog: 'Consenso ai cookie',
-        body: 'Raccogliamo dati di utilizzo anonimi per migliorare il sito. ' +
-              'Clicchi su <strong>Accetto</strong> per consentire anche l’analisi personalizzata ' +
-              '(Google Analytics + registrazione di sessione Microsoft Clarity). ' +
-              'Si veda l’<a href="/it/privacy.html">informativa privacy</a> e le <a href="/it/condizioni.html">condizioni</a>.',
-        reject: 'Rifiuto', rejectAria: 'Rifiuta i cookie non necessari',
-        accept: 'Accetto', acceptAria: 'Accetta i cookie'
+        body: 'Senza il Suo consenso non vengono installati cookie di analisi né trasmessi ' +
+              'dati di utilizzo a terzi. Clicchi su <strong>Accetto</strong> per consentire ' +
+              'Google Analytics e Microsoft Clarity (registrazione di sessione). ' +
+              'Se rifiuta, non viene caricato nulla. ' +
+              'Maggiori dettagli nell’<a href="/it/privacy.html">informativa privacy</a> e nelle <a href="/it/condizioni.html">condizioni</a>.',
+        reject: 'Rifiuto',
+        accept: 'Accetto'
       },
       en: {
         dialog: 'Cookie consent',
-        body: 'We collect anonymous usage data to improve the site. ' +
-              'Click <strong>Accept</strong> to also allow personalised analytics ' +
-              '(Google Analytics + Microsoft Clarity session recording). ' +
+        body: 'Without your consent no analytics cookies are set and no usage data ' +
+              'is passed to third parties. Click <strong>Accept</strong> to allow ' +
+              'Google Analytics and Microsoft Clarity (session recording). ' +
+              'If you reject, nothing is loaded. ' +
               'See our <a href="/en/privacy.html">privacy notice</a> and <a href="/en/terms.html">terms</a>.',
-        reject: 'Reject', rejectAria: 'Reject non-essential cookies',
-        accept: 'Accept', acceptAria: 'Accept cookies'
+        reject: 'Reject',
+        accept: 'Accept'
       }
     };
     var t = I18N[(document.documentElement.lang || 'de').slice(0, 2).toLowerCase()] || I18N.de;
 
     var banner = document.createElement('div');
     banner.id = 'acso-cookie-banner';
-    banner.setAttribute('role', 'dialog');
+    // Not role="dialog": nothing is modal, focus is not trapped and the page
+    // stays usable, so announcing a dialog tells a screen reader user to expect
+    // behaviour that is not there.
+    banner.setAttribute('role', 'region');
     banner.setAttribute('aria-label', t.dialog);
+    // No aria-label on the buttons. The visible word has to be contained in the
+    // accessible name (SC 2.5.3), and "Accetto" is not inside "Accetta i
+    // cookie", so voice control could not activate the Italian buttons.
     banner.innerHTML = [
       '<p>', t.body, '</p>',
       '<div class="acso-cookie-actions">',
-      '  <button class="acso-btn-reject" id="acso-cookie-reject" aria-label="' + t.rejectAria + '">' + t.reject + '</button>',
-      '  <button class="acso-btn-accept" id="acso-cookie-accept" aria-label="' + t.acceptAria + '">' + t.accept + '</button>',
+      '  <button type="button" class="acso-btn-reject" id="acso-cookie-reject">' + t.reject + '</button>',
+      '  <button type="button" class="acso-btn-accept" id="acso-cookie-accept">' + t.accept + '</button>',
       '</div>'
     ].join('');
 
@@ -183,8 +196,39 @@
     });
   }
 
+  function denyConsent() {
+    gtag('consent', 'update', { analytics_storage: 'denied' });
+    if (window.clarity) { try { window.clarity('stop'); } catch (e) {} }
+  }
+
+  // _ga is scoped to the registrable domain, _clck/_clsk to the host, so an
+  // expiry has to be replayed across every domain variant to actually bite.
+  function deleteAnalyticsCookies() {
+    var host = location.hostname;
+    var bare = host.replace(/^www\./, '');
+    var domains = ['', host, '.' + host];
+    if (bare !== host) { domains.push(bare, '.' + bare); }
+
+    document.cookie.split(';').forEach(function (raw) {
+      var name = raw.split('=')[0].trim();
+      if (!/^(_ga|_gid|_gat|_clck|_clsk|CLID|MUID|ANONCHK|SM)/.test(name)) return;
+      domains.forEach(function (d) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' +
+          (d ? '; domain=' + d : '');
+      });
+    });
+
+    try {
+      Object.keys(localStorage).forEach(function (k) {
+        if (/^(_cl|clarity)/i.test(k)) { localStorage.removeItem(k); }
+      });
+    } catch (e) {}
+  }
+
   window.acsoCookieReset = function () {
     try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    denyConsent();
+    deleteAnalyticsCookies();
     location.reload();
   };
 

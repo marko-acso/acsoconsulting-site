@@ -8,7 +8,7 @@
 <meta property="og:description" content="Vierzehn von 545 bulgarischen Maschinenvergaben gingen an einen ausländischen Lieferanten, zwei davon waren der Verkauf einer neuen Maschine. Und was eine Präsenz in Sofia sonst kostet.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://acsoconsulting.com/de/">
-<meta property="og:image" content="https://acsoconsulting.com/og-image.png">
+<meta property="og:image" content="https://acsoconsulting.com/og-de.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="de_DE">
@@ -34,6 +34,9 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3{color:var(--navy-2);line-height:1.2;font-weight:700}
+
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--navy);color:#fff;padding:10px 18px;border-radius:0 0 6px 0;font-size:14.5px;font-weight:600}
+  .skip-link:focus{left:0}
 
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:18px}
@@ -114,23 +117,28 @@
   .ditem p:last-child{margin-bottom:0}
   .ditem .straight{color:var(--navy);font-weight:600}
 
-  .cmp{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 8px 28px rgba(0,51,102,.07)}
-  .cmp-head{display:grid;grid-template-columns:1.5fr 1fr 1fr;background:var(--navy);color:#fff}
-  .cmp-head div{padding:16px 18px;font-weight:700;font-size:15px}
-  .cmp-head div:first-child{font-weight:600;color:#bfd2e4;font-size:13.5px}
-  .cmp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr;border-bottom:1px solid var(--line)}
-  .cmp-row:last-child{border-bottom:none}
-  .cmp-row:nth-child(even){background:#fafcfe}
-  .cmp-row > div{padding:13px 18px;font-size:14.5px;color:var(--mut)}
-  .cmp-row > div:first-child{color:var(--navy-2);font-weight:600}
+  /* The radius sits on the wrapper, not the table: overflow:hidden does not
+     clip a table box in Firefox, so the navy header corners would stay square. */
+  .cmp-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 8px 28px rgba(0,51,102,.07)}
+  .cmp{width:100%;border-collapse:separate;border-spacing:0}
+  .cmp-caption{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .cmp-head th{background:var(--navy);color:#fff;padding:16px 18px;font-weight:700;font-size:15px;text-align:left;vertical-align:top}
+  .cmp-head th:first-child{font-weight:600;color:#bfd2e4;font-size:13.5px;width:42.8%}
+  .cmp-head th:nth-child(2),.cmp-head th:nth-child(3){width:28.6%}
+  .cmp-row{border-bottom:1px solid var(--line)}
+  .cmp-row:nth-child(odd){background:#fafcfe}
+  .cmp-row th,.cmp-row td{padding:13px 18px;font-size:14.5px;color:var(--mut);text-align:left;vertical-align:top;font-weight:400;border-bottom:1px solid var(--line)}
+  .cmp-row:last-child th,.cmp-row:last-child td{border-bottom:none}
+  .cmp-row th{color:var(--navy-2);font-weight:600}
   .cmp-row b{color:var(--navy-2)}
   .cmp-row .no{color:#8b95a1}
   @media(max-width:760px){
     .cmp-head{display:none}
-    .cmp-row{grid-template-columns:1fr;border-bottom:2px solid var(--line);padding:6px 0}
-    .cmp-row > div{padding:6px 18px}
-    .cmp-row > div:nth-child(2):before{content:"AHK-Premiumpaket: ";color:var(--steel);font-weight:600}
-    .cmp-row > div:nth-child(3):before{content:"ACSO, sechs Monate: ";color:var(--steel);font-weight:600}
+    .cmp,.cmp tbody,.cmp-row{display:block}
+    .cmp-row{border-bottom:2px solid var(--line);padding:6px 0}
+    .cmp-row th,.cmp-row td{display:block;width:auto;padding:6px 18px;border-bottom:none}
+    .cmp-row td:nth-of-type(1):before{content:"AHK-Premiumpaket: ";color:var(--steel);font-weight:600}
+    .cmp-row td:nth-of-type(2):before{content:"ACSO, sechs Monate: ";color:var(--steel);font-weight:600}
   }
   .cmp-note{margin-top:18px;font-size:13.5px;color:var(--mut);line-height:1.7}
   .cmp-note a{color:var(--navy);text-decoration:underline}
@@ -188,9 +196,12 @@
   .form-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 30px;box-shadow:0 8px 30px rgba(0,51,102,.06)}
   .form-group{margin-bottom:17px}
   .form-group label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:6px}
-  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #9aa8b6;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #767676;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
   .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--navy);outline:2px solid var(--navy);outline-offset:2px}
   .form-group textarea{resize:vertical;min-height:88px}
+  .form-hint{display:block;font-size:12px;color:var(--mut);margin-top:5px;line-height:1.45}
+  .form-error{display:none;margin:4px 0 12px;padding:11px 14px;border:1px solid #b91c1c;border-radius:8px;background:#fef2f2;color:#7f1d1d;font-size:13.5px;line-height:1.55}
+  .form-error.show{display:block}
   .form-submit{width:100%;background:var(--navy);color:#fff;font-size:15.5px;font-weight:700;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;margin-top:4px}
   .form-submit:hover{background:#00294f}
   .form-fine{font-size:12.5px;color:var(--mut);margin-top:12px;text-align:center}
@@ -269,6 +280,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+
 <header>
   <div class="wrap nav">
     <a href="/de/" class="brand">ACSO CONSULTING<small>MASCHINENBAU &middot; MARKT BULGARIEN</small></a>
@@ -287,6 +300,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main">
 
 <!-- HERO -->
 <section class="hero">
@@ -310,10 +325,11 @@
       <p>&Ouml;sterreichische Unternehmen k&ouml;nnen einen Teil eines solchen Auftrags &uuml;ber
          go-international abrechnen, italienische &uuml;ber den Fondo 394/81. Auf Bundesebene in Deutschland
          gibt es nichts Vergleichbares, und zwar aus zwei konkreten Gr&uuml;nden.</p>
-      <p><b>Die BAFA-F&ouml;rderung unternehmerischen Know-hows</b> deckelt die Bemessungsgrundlage bei
-         3.500 EUR, der Zuschuss liegt je nach Bundesland bei h&ouml;chstens 1.750 bis 2.800 EUR. Das ist
-         nicht in der Gr&ouml;&szlig;enordnung eines Markteintritts, und die Richtlinie l&auml;sst die
-         Antragstellung nur bis zum Ablauf des Jahres 2026 zu. <b>Das Markterschlie&szlig;ungsprogramm des BMWE</b>
+      <p><b>Das BAFA-Programm &bdquo;F&ouml;rderung von Unternehmensberatungen f&uuml;r KMU&ldquo;</b>, der
+         Nachfolger der fr&uuml;heren F&ouml;rderung unternehmerischen Know-hows, deckelt die
+         Bemessungsgrundlage bei 3.500 EUR, der Zuschuss liegt je nach Bundesland bei h&ouml;chstens 1.750 bis
+         2.800 EUR. Das ist nicht in der Gr&ouml;&szlig;enordnung eines Markteintritts, und die Richtlinie
+         l&auml;sst die Antragstellung nur bis zum 31.12.2026 zu. <b>Das Markterschlie&szlig;ungsprogramm des BMWE</b>
          wiederum bezahlt einen vom Bund beauftragten Durchf&uuml;hrer, der die Module organisiert. Es ist
          strukturell nicht darauf angelegt, dass ein Berater Ihrer Wahl Ihnen eine Rechnung schreibt, die
          daraus bezuschusst wird.</p>
@@ -364,20 +380,18 @@
          Maschinen &uuml;ber jemanden ankommen, der dort eingetragen ist.</p>
     </div>
 
-    <p style="margin-top:28px"><strong>Und bevor Sie es selbst nachpr&uuml;fen: Bulgarien ist von den
-       vergleichbaren M&auml;rkten der am st&auml;rksten lokal geschlossene.</strong> 97,4 Prozent der
-       bulgarischen Maschinenvergaben gehen an einen bulgarischen Anbieter. Dieselbe Abfrage, nur mit
-       ge&auml;ndertem Land: Italien 95,2, Polen 95,2, Rum&auml;nien 95,6, Ungarn 95,0, Deutschland 90,6.
-       Zwei Punkte klingen nach nichts. Es ist der Unterschied zwischen einem Markt, in dem der lokale
-       Anbieter Ihr Unternehmen ist, und einem, in dem er niemand ist.</p>
+    <p style="margin-top:28px"><strong>Und bevor Sie es selbst nachpr&uuml;fen: 97,4 Prozent der
+       bulgarischen Maschinenvergaben gehen an einen bulgarischen Anbieter.</strong> Die meisten
+       Mitgliedstaaten liegen bei diesem Wert hoch, die Zahl allein belegt also nichts. Entscheidend ist,
+       was die &uuml;brigen 2,6 Prozent waren, nachdem jede einzelne dieser vierzehn Bekanntmachungen
+       ge&ouml;ffnet und gelesen wurde.</p>
 
     <div class="method">
       <b>Methode, damit Sie es nachbauen k&ouml;nnen.</b> Quelle: TED (Tenders Electronic Daily),
       Europ&auml;ische Union, API v3. Abfrage: <code>notice-type IN (can-standard) AND buyer-country IN (BGR)
       AND classification-cpv IN (42*) AND publication-date&gt;=20240101 AND publication-date&lt;=20260922</code>.
       Auszug vom 26.09.2026. Nenner: nur die 545 von 740 Bekanntmachungen, die ein Lieferantenland angeben;
-      die &uuml;brigen 195 melden es nicht und wurden ausgeschlossen, nicht ignoriert. Der L&auml;ndervergleich
-      verwendet dieselbe Abfrage mit ge&auml;ndertem <code>buyer-country</code>. Die Summen wachsen mit jeder
+      die &uuml;brigen 195 melden es nicht und wurden ausgeschlossen, nicht ignoriert. Die Summen wachsen mit jeder
       neuen Ver&ouml;ffentlichung: wenn Sie ein paar mehr finden, haben Sie die richtige Abfrage.
       <b>Auf Anfrage senden wir Ihnen den Auszug f&uuml;r Ihre eigenen CPV-Codes, kostenlos und
       unverbindlich.</b>
@@ -456,54 +470,61 @@
          deren Seite, also stehen sie hier auch. Es w&auml;re unseri&ouml;s, um sie herumzureden.</p>
     </div>
 
-    <div class="cmp">
-      <div class="cmp-head">
-        <div>Was Sie bekommen</div>
-        <div>AHK-Premiumpaket</div>
-        <div>ACSO, sechs Monate</div>
-      </div>
-      <div class="cmp-row">
-        <div>Preis je Monat</div><div><b>700 EUR</b></div><div><b>2.500 EUR</b></div>
-      </div>
-      <div class="cmp-row">
-        <div>Einrichtungsgeb&uuml;hr</div><div>350 EUR</div><div>keine</div>
-      </div>
-      <div class="cmp-row">
-        <div>Enthaltene Arbeitszeit</div><div>8 Personenstunden je Monat</div>
-        <div>kein Stundenkontingent, sondern Arbeitspakete mit definiertem Ergebnis</div>
-      </div>
-      <div class="cmp-row">
-        <div>Jede weitere Stunde</div><div>80 EUR</div><div>entf&auml;llt</div>
-      </div>
-      <div class="cmp-row">
-        <div>Gesch&auml;ftsadresse in Sofia</div><div>ja</div><div class="no">nein</div>
-      </div>
-      <div class="cmp-row">
-        <div>Telefonnummer unter Ihrem Firmennamen</div><div>ja</div>
-        <div class="no">nein, die Nummer l&auml;uft auf ACSO</div>
-      </div>
-      <div class="cmp-row">
-        <div>Post entgegennehmen und weiterleiten</div><div>ja</div><div class="no">nein</div>
-      </div>
-      <div class="cmp-row">
-        <div>Besprechungsraum</div><div>ja, 15 EUR je Stunde</div><div class="no">nein</div>
-      </div>
-      <div class="cmp-row">
-        <div>Namentliche Anwenderliste mit Ansprechpartner</div>
-        <div class="no">nicht in der Leistungsaufstellung</div><div>Arbeitspaket 1</div>
-      </div>
-      <div class="cmp-row">
-        <div>Beobachtung der Ausschreibungen nach CPV</div>
-        <div class="no">nicht in der Leistungsaufstellung</div><div>Arbeitspaket 2</div>
-      </div>
-      <div class="cmp-row">
-        <div>Kundenbesuche und Verhandlung auf Bulgarisch</div>
-        <div class="no">nicht in der Leistungsaufstellung</div><div>Arbeitspaket 3</div>
-      </div>
-      <div class="cmp-row">
-        <div>Laufzeit</div><div>3 Monate Mindestlaufzeit</div>
-        <div>auf 6 Monate angelegt, aber zum Ende jedes Monats beendbar</div>
-      </div>
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <caption class="cmp-caption">Leistungs- und Preisvergleich: AHK-Premiumpaket gegen&uuml;ber ACSO, sechs Monate</caption>
+      <thead class="cmp-head">
+        <tr>
+          <th scope="col">Was Sie bekommen</th>
+          <th scope="col">AHK-Premiumpaket</th>
+          <th scope="col">ACSO, sechs Monate</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr class="cmp-row">
+        <th scope="row">Preis je Monat</th><td><b>700 EUR</b></td><td><b>2.500 EUR</b></td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Einrichtungsgeb&uuml;hr</th><td>350 EUR</td><td>keine</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Enthaltene Arbeitszeit</th><td>8 Personenstunden je Monat</td>
+        <td>kein Stundenkontingent, sondern Arbeitspakete mit definiertem Ergebnis</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Jede weitere Stunde</th><td>80 EUR</td><td>entf&auml;llt</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Gesch&auml;ftsadresse in Sofia</th><td>ja</td><td class="no">nein</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Telefonnummer unter Ihrem Firmennamen</th><td>ja</td>
+        <td class="no">nein, die Nummer l&auml;uft auf ACSO</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Post entgegennehmen und weiterleiten</th><td>ja</td><td class="no">nein</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Besprechungsraum</th><td>ja, 15 EUR je Stunde</td><td class="no">nein</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Namentliche Anwenderliste mit Ansprechpartner</th>
+        <td class="no">nicht in der Leistungsaufstellung</td><td>Arbeitspaket 1</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Beobachtung der Ausschreibungen nach CPV</th>
+        <td class="no">nicht in der Leistungsaufstellung</td><td>Arbeitspaket 2</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Kundenbesuche und Verhandlung auf Bulgarisch</th>
+        <td class="no">nicht in der Leistungsaufstellung</td><td>Arbeitspaket 3</td>
+      </tr>
+      <tr class="cmp-row">
+        <th scope="row">Laufzeit</th><td>3 Monate Mindestlaufzeit</td>
+        <td>auf 6 Monate angelegt, aber zum Ende jedes Monats beendbar</td>
+      </tr>
+      </tbody>
+    </table>
     </div>
 
     <p class="cmp-note">AHK-Preise wie auf der Seite
@@ -561,11 +582,12 @@
           <li><b>Erstes Gespr&auml;ch in Ihrer Sprache</b>, ohne jemanden dazwischen. Arbeitssprachen:
               Deutsch, Italienisch, Englisch, Serbisch, Bulgarisch.</li>
         </ul>
-        <p class="note">Die Registerdaten stehen nicht offen auf dieser Seite, um sie dem automatisierten
-           Absammeln zu entziehen. Der Firmenname steht unten im Fu&szlig;bereich: schlagen Sie ihn jetzt im
+        <p class="note">Nehmen Sie nichts davon auf Vertrauen: mit der ersten Antwort erhalten Sie
+           Registernummer und Registerauszug und pr&uuml;fen das Unternehmen selbst im
            <a href="https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg" target="_blank" rel="noopener">bulgarischen
-           Handelsregister</a> nach, englischer Bereich, Suche nach Firmenname. Das dauert drei&szlig;ig
-           Sekunden und Sie m&uuml;ssen niemandem schreiben.</p>
+           Handelsregister</a>, englischer Bereich. Suchen Sie dabei &uuml;ber die Registernummer und nicht
+           &uuml;ber den Firmennamen: die Namenssuche liefert Teiltreffer und der Name ist in kyrillischer
+           Schreibweise eingetragen.</p>
       </div>
 
       <div class="facts">
@@ -658,8 +680,9 @@
 
     <div class="anchor-note">
       <b>Zur Einordnung des Preises.</b> Der gemessene durchschnittliche Tagessatz im deutschen
-      Interim-Management-Markt liegt laut DDIM-Blitzumfrage vom 23.09.2026 bei 1.320 EUR; die
-      DDIM-Marktstudie 2026 hatte zu Jahresbeginn 1.317 EUR prognostiziert, die AIMP-Studie 2024/25 weist
+      Interim-Management-Markt liegt laut der am 23.09.2026 ver&ouml;ffentlichten DDIM-Blitzumfrage bei
+      1.320 EUR; die DDIM-Marktstudie 2026 hatte zu Jahresbeginn 1.317 EUR prognostiziert, die AIMP-Studie
+      2024/25 weist
       f&uuml;r Deutschland 1.338 EUR aus. Bei 2.500 EUR im Monat entspricht
       dieser Auftrag rund <b>zwei Manntagen je Monat</b>. Das ist genau das, was er ist: ein Retainer
       f&uuml;r laufende operative Arbeit, kein Vollzeitmanagement, und er wird hier offen so benannt statt
@@ -692,19 +715,23 @@
         <form id="contact-form" novalidate>
           <div class="form-group">
             <label for="f-name">Name</label>
-            <input type="text" id="f-name" name="name" placeholder="Ihr Name" autocomplete="name" required>
+            <input type="text" id="f-name" name="name" placeholder="Ihr Name" autocomplete="name" required aria-required="true" aria-describedby="f-name-hint">
+            <span class="form-hint" id="f-name-hint">Pflichtfeld. Vor- und Zuname.</span>
           </div>
           <div class="form-group">
             <label for="f-email">Gesch&auml;ftliche E-Mail</label>
-            <input type="email" id="f-email" name="email" placeholder="name@firma.de" autocomplete="email" required>
+            <input type="email" id="f-email" name="email" placeholder="name@firma.de" autocomplete="email" required aria-required="true" aria-describedby="f-email-hint">
+            <span class="form-hint" id="f-email-hint">Pflichtfeld. Die Adresse, an die die Antwort gehen soll.</span>
           </div>
           <div class="form-group">
             <label for="f-company">Unternehmen</label>
-            <input type="text" id="f-company" name="company" placeholder="Firmenname" autocomplete="organization" required>
+            <input type="text" id="f-company" name="company" placeholder="Firmenname" autocomplete="organization" required aria-required="true" aria-describedby="f-company-hint">
+            <span class="form-hint" id="f-company-hint">Pflichtfeld. Firmenname wie im Handelsregister eingetragen.</span>
           </div>
           <div class="form-group">
             <label for="f-product">Was Sie bauen</label>
-            <input type="text" id="f-product" name="product" placeholder="z. B. Bohr- und S&auml;geanlagen f&uuml;r Stahlbau" required>
+            <input type="text" id="f-product" name="product" placeholder="z. B. Bohr- und S&auml;geanlagen f&uuml;r Stahlbau" required aria-required="true" aria-describedby="f-product-hint">
+            <span class="form-hint" id="f-product-hint">Pflichtfeld. Die Maschine oder Anlage, um die es geht.</span>
           </div>
           <div class="form-group">
             <label for="f-presence">Haben Sie bereits jemanden in Bulgarien?</label>
@@ -736,6 +763,7 @@
           <div style="position:absolute;left:-9999px" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off">
           </div>
+          <div class="form-error" id="form-error" role="alert"></div>
           <button type="submit" class="form-submit">30-Minuten-Gespr&auml;ch anfragen</button>
           <p class="form-fine">Antwort innerhalb eines Werktags. Ihre Daten werden weder weitergegeben noch
              verkauft: <a href="/privacy.html">Datenschutzerkl&auml;rung</a>.</p>
@@ -758,6 +786,8 @@
     <a href="#kontakt" class="btn">Gespr&auml;ch vereinbaren: 30 Minuten</a>
   </div>
 </div>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -785,9 +815,11 @@
       </div>
     </div>
     <div class="legal">
-      ACSO Consulting EOOD &middot; Gesellschaft bulgarischen Rechts, eingetragen im Handelsregister, Sitz in
-      Sofia.<br>
-      Registerdaten und Registerauszug werden beim ersten Kontakt &uuml;bermittelt.<br>
+      ACSO Consulting EOOD &middot; Gesellschaft bulgarischen Rechts, eingetragen im bulgarischen
+      Handelsregister bei der Registeragentur &middot; Sitz Sofia, Bulgarien.<br>
+      Das Unternehmen ist nicht f&uuml;r die Umsatzsteuer registriert und f&uuml;hrt keine
+      Umsatzsteuer-Identifikationsnummer. Registernummer und Registerauszug erhalten Sie mit der ersten
+      Antwort.<br>
       &copy; <span id="yr"></span> ACSO Consulting. Alle Rechte vorbehalten.
     </div>
   </div>
@@ -800,11 +832,24 @@
   var form    = document.getElementById('contact-form');
   var success = document.getElementById('form-success');
   var btn     = form && form.querySelector('.form-submit');
+  var errBox  = document.getElementById('form-error');
   if (!form || !success || !btn) return;
 
   function val(sel) {
     var el = form.querySelector(sel);
     return el ? el.value.trim() : '';
+  }
+
+  function clearError() {
+    if (!errBox) return;
+    errBox.textContent = '';
+    errBox.className = 'form-error';
+  }
+
+  function showError(msg) {
+    if (!errBox) return;
+    errBox.textContent = msg;
+    errBox.className = 'form-error show';
   }
 
   form.addEventListener('submit', function (e) {
@@ -816,16 +861,23 @@
     var product = val('#f-product');
 
     if (!name || !email || !company || !product) {
-      [['#f-name', name], ['#f-email', email], ['#f-company', company], ['#f-product', product]].forEach(function (pair) {
+      var missing = [];
+      [['#f-name', name, 'Name'], ['#f-email', email, 'Geschäftliche E-Mail'], ['#f-company', company, 'Unternehmen'], ['#f-product', product, 'Was Sie bauen']].forEach(function (pair) {
         var el = form.querySelector(pair[0]);
         if (!el) return;
-        el.style.borderColor = pair[1] ? '' : '#EF4444';
+        el.style.borderColor = pair[1] ? '' : '#b91c1c';
         el.setAttribute('aria-invalid', pair[1] ? 'false' : 'true');
+        if (!pair[1]) missing.push(pair[2]);
       });
+      showError(missing.length === 1
+        ? 'Bitte füllen Sie das Pflichtfeld „' + missing[0] + '“ aus.'
+        : 'Bitte füllen Sie die folgenden Pflichtfelder aus: ' + missing.join(', ') + '.');
       var first = form.querySelector('[aria-invalid="true"]');
       if (first) first.focus();
       return;
     }
+
+    clearError();
 
     var LABEL = btn.dataset.label || btn.textContent;
     btn.dataset.label = LABEL;
@@ -844,16 +896,19 @@
       if (data.success) return showSuccess();
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert(data.message || 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      showError(data.message || 'Die Nachricht konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.');
+      btn.focus();
     })
     .catch(function () {
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert('Verbindungsproblem. Bitte versuchen Sie es gleich noch einmal.');
+      showError('Die Verbindung ist fehlgeschlagen. Bitte versuchen Sie es gleich noch einmal.');
+      btn.focus();
     });
   });
 
   function showSuccess() {
+    clearError();
     form.style.display = 'none';
     success.style.display = 'block';
     success.setAttribute('tabindex', '-1');
@@ -873,7 +928,7 @@
   }
 
   form.querySelectorAll('input, textarea, select').forEach(function (el) {
-    el.addEventListener('input', function () { el.style.borderColor = ''; el.removeAttribute('aria-invalid'); });
+    el.addEventListener('input', function () { el.style.borderColor = ''; el.removeAttribute('aria-invalid'); clearError(); });
   });
 })();
 </script>

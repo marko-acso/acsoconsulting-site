@@ -29,11 +29,14 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  section[id],div[id]{scroll-margin-top:80px}
+  section[id],div[id],main[id]{scroll-margin-top:80px}
   body{font-family:"Segoe UI",Calibri,Arial,system-ui,sans-serif;color:var(--ink);line-height:1.6;background:var(--white)}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   h1,h2,h3{color:var(--navy-2);line-height:1.2;font-weight:700}
+  .skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--navy);color:#fff;padding:10px 18px;border-radius:0 0 6px 0;font-size:14.5px;font-weight:600}
+  .skip:focus{left:0}
+  main:focus{outline:none}
 
   header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:18px}
@@ -180,11 +183,13 @@
   .form-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px 30px;box-shadow:0 8px 30px rgba(0,51,102,.06)}
   .form-group{margin-bottom:17px}
   .form-group label{display:block;font-size:13px;font-weight:600;color:var(--mut);margin-bottom:6px}
-  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #9aa8b6;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:#fff;border:1px solid #767676;border-radius:8px;color:var(--ink);font-family:inherit;font-size:15px;padding:11px 14px;transition:border-color .15s}
   .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--navy);outline:2px solid var(--navy);outline-offset:2px}
   .form-group textarea{resize:vertical;min-height:88px}
   .form-submit{width:100%;background:var(--navy);color:#fff;font-size:15.5px;font-weight:700;padding:14px 28px;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:background .15s;margin-top:4px}
   .form-submit:hover{background:#00294f}
+  .form-error{display:none;margin:0 0 12px;padding:10px 13px;border:1px solid #B91C1C;border-radius:8px;background:#fdf2f2;color:#B91C1C;font-size:13.5px;line-height:1.5}
+  .form-error.on{display:block}
   .form-fine{font-size:12.5px;color:var(--mut);margin-top:12px;text-align:center}
   .form-fine a{color:var(--navy);text-decoration:underline}
   .form-check{display:flex;gap:10px;align-items:flex-start;margin:4px 0 16px;font-size:13.5px;color:var(--mut);line-height:1.5;cursor:pointer}
@@ -270,6 +275,8 @@
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to main content</a>
+
 <header>
   <div class="wrap nav">
     <a href="/" class="brand">ACSO CONSULTING<small>MACHINERY &middot; BULGARIAN MARKET</small></a>
@@ -288,6 +295,8 @@
     </nav>
   </div>
 </header>
+
+<main id="main" tabindex="-1">
 
 <!-- HERO -->
 <section class="hero">
@@ -313,7 +322,7 @@
         <a class="ccard" href="/it/rappresentanza-bulgaria.html">
           <div class="top"><span class="flag flag-it"></span><span class="cname">Italia</span></div>
           <span class="tag">Fondo 394/81 &middot; SIMEST</span>
-          <p>The engagement is financeable under the SIMEST Temporary Manager line, which requires a third
+          <p>The fee can be funded under the SIMEST Temporary Manager line, which requires a third
              party service company and expressly allows that company to be foreign.</p>
           <span class="go">Rappresentanza commerciale in Bulgaria &rarr;</span>
         </a>
@@ -375,19 +384,17 @@
          foreign machines arrive through somebody who is registered here.</p>
     </div>
 
-    <p style="margin-top:28px"><strong>And before you check it yourself: Bulgaria is the most locally captured
-       of the comparable markets.</strong> 97.4 per cent of Bulgarian machinery awards go to a Bulgarian
-       operator. Same query, changing only the country: Italy 95.2, Poland 95.2, Romania 95.6, Hungary 95.0,
-       Germany 90.6. Two points sounds like nothing. It is the difference between a market where the local
-       supplier is your company and one where it is nobody.</p>
+    <p style="margin-top:28px"><strong>And before you check it yourself: 97.4 per cent of Bulgarian
+       machinery awards go to a Bulgarian operator.</strong> Most member states sit high on that measure,
+       so the number on its own proves nothing. What matters is what the other 2.6 per cent turned out to
+       be once every one of those fourteen notices was opened and read.</p>
 
     <div class="method">
       <b>Method, so you can reproduce it.</b> Source: TED (Tenders Electronic Daily), European Union, API v3.
       Query: <code>notice-type IN (can-standard) AND buyer-country IN (BGR) AND classification-cpv IN (42*)
       AND publication-date&gt;=20240101 AND publication-date&lt;=20260922</code>. Extracted 26.09.2026.
       Denominator: only the 545 of 740 notices that state a supplier country; the other 195 do not report it
-      and were excluded, not ignored. The country comparison uses the identical query changing only
-      <code>buyer-country</code>. Totals grow with every new publication: if you find a few more, that means
+      and were excluded, not ignored. Totals grow with every new publication: if you find a few more, that means
       you have the right query.
       <b>On request we send you the extract for your own CPV codes, free and with no obligation.</b>
     </div>
@@ -483,11 +490,11 @@
           <li><b>First call in your language</b>, with nobody in the middle. Working languages: German,
               Italian, English, Serbian, Bulgarian.</li>
         </ul>
-        <p class="note">Registration details are not printed in the open on this page, to keep them out of
-           automated harvesting. The company name is in the footer below: look it up right now in the
+        <p class="note">Do not take any of it on trust. Ask, and the first reply carries our registration
+           number and a register extract, so you can check the company yourself in the
            <a href="https://portal.registryagency.bg/CR/en/Reports/VerificationPersonOrg" target="_blank" rel="noopener">Bulgarian
-           Commercial Register</a>, English section, search by name. It takes thirty seconds and you do not
-           have to write to anyone.</p>
+           Commercial Register</a>, English section. Search by the number rather than the name: the number
+           returns exactly one company.</p>
       </div>
 
       <div class="facts">
@@ -581,7 +588,7 @@
 
     <div class="anchor-note">
       <b>For a reference point.</b> The German interim management market averaged 1,320 EUR per day in the
-      DDIM Blitzumfrage of 23.09.2026. At 2,500 EUR per month this engagement is the equivalent of roughly
+      DDIM Blitzumfrage published on 23.09.2026. At 2,500 EUR per month this engagement is the equivalent of roughly
       two man-days a month, which is what it is, and it is priced as a retainer rather than as full-time
       management. There are cheaper ways to buy export support, and it is worth saying what you give up: the
       cheaper option works from home, in your language, across several markets at once. Here the person is in
@@ -719,6 +726,7 @@
           <div style="position:absolute;left:-9999px" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off">
           </div>
+          <p class="form-error" id="form-error" role="alert"></p>
           <button type="submit" class="form-submit">Request the 30-minute call</button>
           <p class="form-fine">A reply within one working day. Your data is neither passed on nor sold:
              <a href="/en/privacy.html">privacy notice</a>.</p>
@@ -741,6 +749,8 @@
     <a href="#contact" class="btn">Talk to us: 30 minutes</a>
   </div>
 </div>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -767,9 +777,9 @@
       </div>
     </div>
     <div class="legal">
-      ACSO Consulting EOOD &middot; a company incorporated under Bulgarian law, entered in the Commercial
-      Register, registered office in Sofia.<br>
-      Registration details and register extract provided on first contact.<br>
+      ACSO Consulting EOOD, a company incorporated under Bulgarian law, entered in the Commercial
+      Register at the Registry Agency, registered office Sofia, Bulgaria.<br>
+      Not registered for VAT. Registration number and register extract provided on first contact.<br>
       &copy; <span id="yr"></span> ACSO Consulting. All rights reserved.
     </div>
   </div>
@@ -781,12 +791,37 @@
 (function () {
   var form    = document.getElementById('contact-form');
   var success = document.getElementById('form-success');
+  var errBox  = document.getElementById('form-error');
   var btn     = form && form.querySelector('.form-submit');
   if (!form || !success || !btn) return;
 
   function val(sel) {
     var el = form.querySelector(sel);
     return el ? el.value.trim() : '';
+  }
+
+  function showError(msg) {
+    if (!errBox) return;
+    errBox.textContent = msg;
+    errBox.className = 'form-error on';
+  }
+
+  function clearError() {
+    if (!errBox) return;
+    errBox.textContent = '';
+    errBox.className = 'form-error';
+  }
+
+  function mark(el, ok) {
+    if (!el) return;
+    el.style.borderColor = ok ? '' : '#B91C1C';
+    if (ok) {
+      el.removeAttribute('aria-invalid');
+      el.removeAttribute('aria-describedby');
+    } else {
+      el.setAttribute('aria-invalid', 'true');
+      el.setAttribute('aria-describedby', 'form-error');
+    }
   }
 
   form.addEventListener('submit', function (e) {
@@ -798,16 +833,20 @@
     var product = val('#f-product');
 
     if (!name || !email || !company || !product) {
-      [['#f-name', name], ['#f-email', email], ['#f-company', company], ['#f-product', product]].forEach(function (pair) {
-        var el = form.querySelector(pair[0]);
-        if (!el) return;
-        el.style.borderColor = pair[1] ? '' : '#EF4444';
-        el.setAttribute('aria-invalid', pair[1] ? 'false' : 'true');
+      var missing = [];
+      [['#f-name', name, 'Name'], ['#f-email', email, 'Business e-mail'],
+       ['#f-company', company, 'Company'], ['#f-product', product, 'What you build']].forEach(function (row) {
+        var el = form.querySelector(row[0]);
+        mark(el, row[1] ? true : false);
+        if (!row[1]) missing.push(row[2]);
       });
+      showError('Please complete these fields before sending: ' + missing.join(', ') + '.');
       var first = form.querySelector('[aria-invalid="true"]');
       if (first) first.focus();
       return;
     }
+
+    clearError();
 
     var LABEL = btn.dataset.label || btn.textContent;
     btn.dataset.label = LABEL;
@@ -826,16 +865,17 @@
       if (data.success) return showSuccess();
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert(data.message || 'Something went wrong. Please try again.');
+      showError(data.message || 'Something went wrong. Please try again.');
     })
     .catch(function () {
       btn.disabled = false;
       btn.textContent = LABEL;
-      alert('Connection problem. Please try again in a moment.');
+      showError('Connection problem. Please try again in a moment.');
     });
   });
 
   function showSuccess() {
+    clearError();
     form.style.display = 'none';
     success.style.display = 'block';
     success.setAttribute('tabindex', '-1');
@@ -855,9 +895,15 @@
     });
   }
 
-  form.querySelectorAll('input, textarea, select').forEach(function (el) {
-    el.addEventListener('input', function () { el.style.borderColor = ''; el.removeAttribute('aria-invalid'); });
-  });
+  var fields = form.querySelectorAll('input, textarea, select');
+  for (var i = 0; i < fields.length; i++) {
+    (function (el) {
+      el.addEventListener('input', function () {
+        mark(el, true);
+        if (!form.querySelector('[aria-invalid="true"]')) clearError();
+      });
+    })(fields[i]);
+  }
 })();
 </script>
 

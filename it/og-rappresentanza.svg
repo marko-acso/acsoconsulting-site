@@ -14,11 +14,11 @@
   <rect x="0" y="0" width="10" height="630" fill="#F0B84B"/>
   <g font-family="'Segoe UI', Roboto, Arial, sans-serif">
     <text x="76" y="95" font-size="34" font-weight="800" fill="#FFFFFF">ACSO <tspan fill="#7FA8D4">CONSULTING</tspan></text>
-    <text x="76" y="124" font-size="15" font-weight="700" fill="#5B7EA6" letter-spacing="0.14em">MARKET ENTRY &#183; BULGARIA</text>
-    <text x="76" y="292" font-size="116" font-weight="800" fill="#FFFFFF" letter-spacing="-0.03em">14 of 545.</text>
-    <text x="76" y="378" font-size="30" fill="#D7E0EA">Bulgarian public machinery awards that went</text>
-    <text x="76" y="420" font-size="30" fill="#D7E0EA">to a foreign supplier.</text>
-    <text x="76" y="470" font-size="30" font-weight="700" fill="#F5B841">Two of them were a real sale.</text>
+    <text x="76" y="124" font-size="15" font-weight="700" fill="#5B7EA6" letter-spacing="0.14em">RAPPRESENTANZA COMMERCIALE &#183; BULGARIA</text>
+    <text x="76" y="292" font-size="116" font-weight="800" fill="#FFFFFF" letter-spacing="-0.03em">14 su 545.</text>
+    <text x="76" y="378" font-size="30" fill="#D7E0EA">Tante sono le gare pubbliche bulgare di macchinari</text>
+    <text x="76" y="420" font-size="30" fill="#D7E0EA">vinte da un fornitore estero.</text>
+    <text x="76" y="470" font-size="30" font-weight="700" fill="#F5B841">Nessuna italiana.</text>
     <line x1="76" y1="535" x2="196" y2="535" stroke="#3A5271" stroke-width="3"/>
     <text x="76" y="582" font-size="20" fill="#7E93AB">acsoconsulting.com</text>
   </g>

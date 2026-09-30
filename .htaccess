@@ -1,7 +1,7 @@
 ErrorDocument 404 /404.html
 ErrorDocument 410 /404.html
 
-# Permanently gone — old WordPress paths (return 410 Gone for fast deindex)
+# Permanently gone - old WordPress paths (return 410 Gone for fast deindex)
 RedirectMatch 410 ^/services(/.*)?$
 RedirectMatch 410 ^/team/.*$
 RedirectMatch 410 ^/author/.*$
@@ -27,7 +27,7 @@ RewriteRule ^(.*)$ https://acsoconsulting.com/$1 [L,R=301]
 RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
 RewriteRule ^index\.html$ / [R=301,L]
 
-# Legacy WP query params (lang, gallery, p, etc.) — 410 so Google deindexes fast
+# Legacy WP query params (lang, gallery, p, etc.) - 410 so Google deindexes fast
 RewriteCond %{QUERY_STRING} (^|&)(lang|gallery|p|page_id|cat|m|s)= [NC]
 RewriteRule ^.*$ - [R=410,L]
 
@@ -46,4 +46,14 @@ RewriteRule ^.*$ - [R=410,L]
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Without this the HTTPS redirect above is still one cleartext request that a
+  # network attacker can intercept before it happens. Deliberately no
+  # includeSubDomains and no preload: webmail and other host subdomains have not
+  # been verified as HTTPS-only, and both of those are hard to walk back.
+  Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+
+  # The site uses none of these. Denying them stops an injected or third-party
+  # script, including the analytics tags, from reaching for a device API.
+  Header set Permissions-Policy "accelerometer=(), autoplay=(), bluetooth=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), serial=(), usb=()"
 </IfModule>

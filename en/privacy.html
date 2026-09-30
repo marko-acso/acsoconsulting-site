@@ -27,6 +27,8 @@
   th{background:var(--bg-soft);color:var(--navy-2);font-weight:600}
   .back-link{display:inline-block;margin-bottom:30px;font-size:.85rem;color:var(--mut)}
   .back-link:hover{color:var(--navy)}
+  .linkbtn{background:none;border:none;padding:0;font:inherit;color:var(--navy);text-decoration:underline;cursor:pointer}
+  .linkbtn:hover{color:var(--navy-2)}
 </style>
 <script defer src="/js/cookie-consent.js"></script>
 </head>
@@ -40,10 +42,11 @@
 
 <h2>1. Who is the controller</h2>
 <p>ACSO Consulting EOOD, a company incorporated under Bulgarian law with its registered office in Sofia, operates the website acsoconsulting.com and is the controller of the personal data described in this notice.</p>
-<p>Full registration details are provided on first contact. To write to us, use the <a href="/#contact">contact form</a>.</p>
+<p>ACSO Consulting EOOD is entered in the Bulgarian Commercial Register kept by the Registry Agency, registered office Sofia, Bulgaria. The company is not registered for VAT and therefore holds no VAT identification number. We provide our registration number and a register extract with the first reply to an enquiry.</p>
+<p>To write to us, use the <a href="/#contact">contact form</a>.</p>
 
 <h2>2. What data we collect</h2>
-<p>Data reaches us by two routes only:</p>
+<p>Data reaches us by three routes:</p>
 
 <p><strong>a) Data you enter in the contact form</strong></p>
 <ul>
@@ -55,11 +58,13 @@
   <li>Your current presence in Bulgaria</li>
   <li>Telephone number (optional)</li>
   <li>Free text about your enquiry (optional)</li>
+  <li>Whether you requested the free tender extract</li>
 </ul>
 <p>You submit this data voluntarily. It is used solely to answer your enquiry and to assess whether our activities match what you need.</p>
 
 <p><strong>b) Analytics cookies (only with your consent)</strong></p>
-<p>We use Google Analytics 4 (GA4) and Microsoft Clarity to understand how visitors use the site. These tools collect anonymised usage data such as pages viewed, scroll depth, click patterns and referral source. Clarity additionally produces anonymised session recordings and heatmaps. Sensitive form inputs are masked automatically.</p>
+<p>We use Google Analytics 4 (GA4) and Microsoft Clarity to understand how visitors use the site. These tools collect usage data such as pages viewed, scroll depth, click patterns and referral source. Clarity additionally produces session recordings and heatmaps. Sensitive form inputs are masked automatically.</p>
+<p>This data is pseudonymised: it is processed under a cookie identifier that does not name you directly. It therefore remains personal data within the meaning of Art. 4(1) GDPR and is not anonymous. Your IP address is also processed by these services; we do not truncate or mask it.</p>
 
 <table>
   <thead>
@@ -67,19 +72,28 @@
   </thead>
   <tbody>
     <tr><td>_ga</td><td>Google</td><td>Distinguishes individual visitors</td><td>2 years</td></tr>
-    <tr><td>_ga_KLF533BDNB</td><td>Google</td><td>Maintains session state</td><td>2 years</td></tr>
+    <tr><td>_gid</td><td>Google</td><td>Distinguishes visitors within a single day</td><td>24 hours</td></tr>
     <tr><td>_clck</td><td>Microsoft</td><td>Stores the Clarity user ID</td><td>1 year</td></tr>
     <tr><td>_clsk</td><td>Microsoft</td><td>Links page views within one session</td><td>1 day</td></tr>
     <tr><td>CLID</td><td>Microsoft</td><td>Recognises returning users</td><td>1 year</td></tr>
+    <tr><td>MUID</td><td>Microsoft</td><td>Recognises the same browser across Microsoft services</td><td>1 year</td></tr>
+    <tr><td>ANONCHK</td><td>Microsoft</td><td>Checks technically whether identifiers can be set</td><td>10 minutes</td></tr>
+    <tr><td>SM</td><td>Microsoft</td><td>Synchronises the identifier across Microsoft domains</td><td>Session</td></tr>
   </tbody>
 </table>
+<p>The durations are set by the respective providers and may be changed by them.</p>
 
 <p>These cookies are set only if you click &ldquo;Accept&rdquo; in the banner. If you reject, or do not interact with the banner at all, no analytics cookies are set and no tracking data is collected.</p>
+<p>Your consent covers analytics only. No advertising, remarketing or personalisation cookies are set, and the advertising consent signals (ad_storage, ad_user_data, ad_personalization) remain denied at all times, including after you click &ldquo;Accept&rdquo;. Google Signals is not enabled.</p>
+
+<p><strong>c) Your IP address</strong></p>
+<p>When you submit the contact form, our server derives an MD5 digest from your IP address and stores the timestamps of your submissions under that digest, in order to enforce a limit of five submissions per IP address per hour. The IP address itself is not stored in clear text. Separately, the web server keeps ordinary access logs which contain the IP address; these serve the secure operation of the service and the investigation of faults and attacks.</p>
 
 <h2>3. Legal basis for processing</h2>
 <ul>
   <li><strong>Contact form data:</strong> legitimate interest (Art. 6(1)(f) GDPR), in order to follow up on your request for information about our activities.</li>
   <li><strong>Analytics cookies:</strong> consent (Art. 6(1)(a) GDPR), only after explicit consent given through the banner.</li>
+  <li><strong>IP address (abuse prevention, rate limiting, server logs):</strong> legitimate interest (Art. 6(1)(f) GDPR). Our interest is to prevent automated abuse of the contact form and to keep the service secure and available.</li>
 </ul>
 
 <h2>4. How we use your data</h2>
@@ -92,16 +106,20 @@
 
 <h2>5. Who receives your data</h2>
 <ul>
-  <li><strong>Google LLC</strong> (processor for analytics, under EU standard contractual clauses), only where cookie consent was given</li>
-  <li><strong>Microsoft Corporation</strong> (Clarity session analytics, under EU standard contractual clauses), only where cookie consent was given</li>
+  <li><strong>Google Ireland Limited</strong>, Gordon House, Barrow Street, Dublin 4, Ireland, the processor for Google Analytics, only where cookie consent was given</li>
+  <li><strong>Microsoft Ireland Operations Limited</strong>, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland, the processor for Microsoft Clarity, only where cookie consent was given</li>
   <li><strong>Hosting provider</strong>: our web server processes form submissions; no data beyond what is needed to forward the message by e-mail is transmitted</li>
 </ul>
 <p>We do not sell, rent or pass on your personal data to any other third party.</p>
+
+<p><strong>Transfers outside the EEA.</strong> Both processors are established in the EEA. They may pass data on to their group companies in the United States, in particular to Google LLC and Microsoft Corporation. That onward transfer relies primarily on the certification of both companies under the EU-US Data Privacy Framework, for which the European Commission adopted an adequacy decision on 10 July 2023. The European Commission&rsquo;s standard contractual clauses are additionally in place as a supplementary measure, covering transfers not caught by that certification.</p>
 
 <h2>6. Retention period</h2>
 <ul>
   <li><strong>Contact form data:</strong> up to 12 months after the last communication, then deleted.</li>
   <li><strong>Analytics data:</strong> up to 14 months in Google Analytics, then deleted automatically.</li>
+  <li><strong>Rate limiting (MD5 digest of the IP address):</strong> the stored timestamps are evaluated over a rolling period of one hour; older entries are discarded on the next submission.</li>
+  <li><strong>Web server access logs:</strong> overwritten automatically after the period configured by the hosting provider. We use them only to analyse faults and attacks, never to evaluate your behaviour.</li>
 </ul>
 
 <h2>7. Your rights</h2>
@@ -110,9 +128,10 @@
   <li>obtain access to the data concerning you,</li>
   <li>request correction of inaccurate data,</li>
   <li>request erasure of your data,</li>
-  <li>withdraw consent at any time (by deleting the cookies or choosing &ldquo;Reject&rdquo; in the banner),</li>
+  <li>withdraw consent at any time,</li>
   <li>lodge a complaint with the competent supervisory authority. In Bulgaria this is the Commission for Personal Data Protection (KZLD); you may also complain to the supervisory authority of your own country of residence.</li>
 </ul>
+<p><strong>Withdrawal of consent (Art. 7(3) GDPR).</strong> You may withdraw your consent to analytics cookies at any time. Withdrawal does not affect the lawfulness of processing carried out on the basis of that consent before it was withdrawn. To withdraw, use the &ldquo;Withdraw cookie consent&rdquo; control at the foot of this page, or the &ldquo;Cookies&rdquo; control in the site footer. This resets the stored consent, switches analytics off and deletes the analytics cookies already set; the consent banner then appears again.</p>
 <p>To exercise these rights, use the <a href="/#contact">contact form</a>. We respond within 30 days.</p>
 
 <h2>8. Data security</h2>
@@ -123,6 +142,8 @@
 
 <p style="margin-top:48px;font-size:0.85rem;color:var(--mut)">
   See also: <a href="/en/terms.html">Terms of use</a>
+  &nbsp;&middot;&nbsp;
+  <button type="button" class="linkbtn" onclick="if(window.acsoCookieReset)acsoCookieReset();">Withdraw cookie consent</button>
 </p>
 
 </div>
